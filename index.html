@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   
-  <!-- Firebase SDKs (Compat para integración HTML directa) -->
+  <!-- Firebase SDKs (Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
@@ -131,7 +131,7 @@
         </button>
 
         <button onclick="switchTab('events')" id="nav-btn-events" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition">
-          <div class="flex items-center space-x-3"><span>🥩</span><span>Reuniones & Asados</span></div>
+          <div class="flex items-center space-x-3"><span>🎉</span><span>Eventos</span></div>
         </button>
 
         <button onclick="switchTab('achievements')" id="nav-btn-achievements" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition">
@@ -144,7 +144,7 @@
             <div class="flex items-center space-x-2"><span>👑</span><span>Gestión de Cuentas</span></div>
           </button>
           <button onclick="openCustomizerModal()" class="w-full flex items-center space-x-2 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-sky-400 hover:bg-slate-800 transition">
-            <span>🎨</span><span>Editar Colores & Fuentes</span>
+            <span>🎨</span><span>Editar Textos & Colores</span>
           </button>
         </div>
       </nav>
@@ -169,7 +169,7 @@
 
       <div class="flex items-center gap-2">
         <button id="admin-custom-btn-top" onclick="openCustomizerModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl items-center space-x-1 border border-slate-300 transition hidden">
-          <span>🎨</span><span class="hidden sm:inline">Diseño (Admin)</span>
+          <span>🎨</span><span class="hidden sm:inline">Editar Títulos (Admin)</span>
         </button>
 
         <button id="main-action-btn" onclick="openActiveActionModal()" class="bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold px-3.5 py-2 md:px-4 md:py-2.5 rounded-xl flex items-center space-x-1.5 shadow-md active:scale-95 transition">
@@ -185,7 +185,7 @@
       <section id="tab-agenda" class="hidden space-y-6">
         <div class="bg-gradient-to-r from-sky-500/10 via-sky-100/60 to-blue-50 border-2 border-sky-200 rounded-3xl p-5 md:p-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div class="space-y-1.5">
-            <div class="inline-flex items-center gap-2 bg-sky-600 text-white text-[11px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider"><span>🚫</span> ¿Cuándo NO se puede invitar a la familia?</div>
+            <div class="inline-flex items-center gap-2 bg-sky-600 text-white text-[11px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider"><span>🚫</span> Disponibilidad Familiar</div>
             <h3 class="text-base md:text-lg font-black text-slate-900">Agenda Semanal de Ocupaciones y Entrenamientos</h3>
             <p class="text-xs md:text-sm text-slate-600">Consulta los días y horarios fijos en que cada integrante entrena o trabaja.</p>
           </div>
@@ -201,7 +201,7 @@
         <div class="bg-slate-900 text-white p-5 rounded-3xl flex justify-between items-center">
           <div>
             <h3 class="text-base font-black text-sky-400">👑 Panel de Administradora</h3>
-            <p class="text-xs text-slate-300">Crea las cuentas de la familia.</p>
+            <p class="text-xs text-slate-300">Crea las cuentas de los integrantes de la familia.</p>
           </div>
           <button onclick="openNewMemberModal()" class="bg-sky-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow">+ Crear Familiar</button>
         </div>
@@ -214,31 +214,53 @@
   <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 flex justify-around items-center py-2 px-1 z-30 text-[10px]">
     <button onclick="switchTab('feed')" id="mobile-dock-feed" class="flex flex-col items-center p-1 text-sky-400 font-bold"><span class="text-lg">📷</span>Muro</button>
     <button onclick="switchTab('agenda')" id="mobile-dock-agenda" class="flex flex-col items-center p-1 text-slate-400"><span class="text-lg">📅</span>Agenda</button>
-    <button onclick="switchTab('events')" id="mobile-dock-events" class="flex flex-col items-center p-1 text-slate-400"><span class="text-lg">🥩</span>Asados</button>
+    <button onclick="switchTab('events')" id="mobile-dock-events" class="flex flex-col items-center p-1 text-slate-400"><span class="text-lg">🎉</span>Eventos</button>
     <button onclick="switchTab('achievements')" id="mobile-dock-achievements" class="flex flex-col items-center p-1 text-slate-400"><span class="text-lg">🏆</span>Logros</button>
     <button onclick="switchTab('admin')" id="mobile-dock-admin" class="flex flex-col items-center p-1 text-slate-400"><span class="text-lg">👑</span>Admin</button>
   </nav>
 
-  <!-- MODAL: Customizer (Admin) -->
+  <!-- MODAL: Customizer (Admin - Edición Completa) -->
   <div id="modal-customizer" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-        <h3 class="font-black text-lg text-slate-900">🎨 Personalizar App (Admin)</h3>
+        <h3 class="font-black text-lg text-slate-900">🎨 Editar Textos y Colores</h3>
         <button onclick="closeModal('modal-customizer')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
       </div>
       <form onsubmit="handleSaveCustomizer(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nombre de la Familia</label>
-          <input type="text" id="cust-family-name" required class="w-full border rounded-xl p-2 text-sm" placeholder="Nombre de la familia">
+          <input type="text" id="cust-family-name" required class="w-full border rounded-xl p-2 text-sm">
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Subtítulo o Lema</label>
-          <input type="text" id="cust-subtitle" required class="w-full border rounded-xl p-2 text-sm" placeholder="Subtítulo">
+          <input type="text" id="cust-subtitle" required class="w-full border rounded-xl p-2 text-sm">
         </div>
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mensaje de Anuncio Superior</label>
-          <input type="text" id="cust-announcement" class="w-full border rounded-xl p-2 text-sm" placeholder="Mensaje de Anuncio">
+          <input type="text" id="cust-announcement" class="w-full border rounded-xl p-2 text-sm">
         </div>
+
+        <hr class="my-2">
+        <p class="text-xs font-bold text-slate-800">Títulos de las Secciones:</p>
+        
+        <div>
+          <label class="block text-[10px] text-slate-500 font-bold">Título Muro</label>
+          <input type="text" id="cust-title-feed" class="w-full border rounded-xl p-1.5 text-xs">
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-500 font-bold">Título Agenda</label>
+          <input type="text" id="cust-title-agenda" class="w-full border rounded-xl p-1.5 text-xs">
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-500 font-bold">Título Eventos</label>
+          <input type="text" id="cust-title-events" class="w-full border rounded-xl p-1.5 text-xs">
+        </div>
+        <div>
+          <label class="block text-[10px] text-slate-500 font-bold">Título Logros</label>
+          <input type="text" id="cust-title-achievements" class="w-full border rounded-xl p-1.5 text-xs">
+        </div>
+
+        <hr class="my-2">
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Color Principal (Tema)</label>
           <div class="grid grid-cols-2 gap-2" id="theme-options-grid"></div>
@@ -255,7 +277,7 @@
           <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Ícono Principal</label>
           <div class="flex flex-wrap gap-2" id="cust-logo-options"></div>
         </div>
-        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-2xl text-sm shadow-lg transition">Guardar Cambios</button>
+        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-2xl text-sm shadow-lg transition">Guardar Todo en la Nube</button>
       </form>
     </div>
   </div>
@@ -268,7 +290,7 @@
         <button onclick="closeModal('modal-post')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
       </div>
       <form onsubmit="handleCreatePost(event)" class="space-y-3">
-        <textarea id="post-content" required rows="3" class="w-full border rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Escribe un mensaje para la Familia Vazquez..."></textarea>
+        <textarea id="post-content" required rows="3" class="w-full border rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Escribe un mensaje para la Familia..."></textarea>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Seleccionar Foto desde tu Dispositivo</label>
           <input type="file" id="post-file-input" accept="image/*" class="w-full border rounded-xl p-2 text-xs bg-slate-50" onchange="previewSelectedImage(event)">
@@ -328,18 +350,34 @@
     </div>
   </div>
 
-  <!-- MODAL: Crear Evento / Asado -->
+  <!-- MODAL: Crear Evento -->
   <div id="modal-event" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-        <h3 class="font-bold text-base text-slate-900">🥩 Proponer Reunión o Asado</h3>
+        <h3 class="font-bold text-base text-slate-900">🎉 Proponer Evento o Reunión</h3>
         <button onclick="closeModal('modal-event')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
       </div>
       <form onsubmit="handleCreateEvent(event)" class="space-y-3">
-        <input type="text" id="event-title" required placeholder="Ej: Asado en lo de Papá" class="w-full border rounded-xl p-2 text-sm">
+        <input type="text" id="event-title" required placeholder="Ej: Asado en lo de Papá, Cumpleaños" class="w-full border rounded-xl p-2 text-sm">
         <input type="text" id="event-date" required placeholder="Ej: Próximo Sábado 21:00 hs" class="w-full border rounded-xl p-2 text-sm">
         <textarea id="event-desc" rows="2" placeholder="Detalles / Qué llevar..." class="w-full border rounded-xl p-2 text-sm"></textarea>
-        <button type="submit" class="w-full bg-sky-600 text-white font-bold py-3 rounded-xl text-sm shadow">Publicar Reunión</button>
+        <button type="submit" class="w-full bg-sky-600 text-white font-bold py-3 rounded-xl text-sm shadow">Publicar Evento</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: Crear Logro -->
+  <div id="modal-achievement" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+        <h3 class="font-bold text-base text-slate-900">🏆 Agregar Nuevo Logro</h3>
+        <button onclick="closeModal('modal-achievement')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+      <form onsubmit="handleCreateAchievement(event)" class="space-y-3">
+        <input type="text" id="achieve-title" required placeholder="Ej: ¡Aprobó el examen final!, Nuevo Trabajo" class="w-full border rounded-xl p-2 text-sm">
+        <select id="achieve-person" class="w-full border rounded-xl p-2 text-sm font-semibold"></select>
+        <textarea id="achieve-desc" rows="2" placeholder="Descripción corta del logro..." class="w-full border rounded-xl p-2 text-sm"></textarea>
+        <button type="submit" class="w-full bg-sky-600 text-white font-bold py-3 rounded-xl text-sm shadow">Guardar Logro</button>
       </form>
     </div>
   </div>
@@ -362,9 +400,7 @@
   </div>
 
   <script>
-    // -------------------------------------------------------------
-    // CONFIGURACIÓN OFICIAL DE FIREBASE
-    // -------------------------------------------------------------
+    // CONFIGURACIÓN DE FIREBASE
     const firebaseConfig = {
       apiKey: "AIzaSyBvnKQiw2PtzcCAZruxmocfMggCfkFCoKM",
       authDomain: "familiavazquezapp.firebaseapp.com",
@@ -378,27 +414,42 @@
     const db = firebase.firestore();
 
     const COLOR_THEMES = {
-      sky: { id: 'sky', name: 'Celeste / Azul', bg: 'bg-sky-600', hover: 'hover:bg-sky-700', text: 'text-sky-600', lightBg: 'bg-sky-50', border: 'border-sky-200' },
-      indigo: { id: 'indigo', name: 'Índigo Moderno', bg: 'bg-indigo-600', hover: 'hover:bg-indigo-700', text: 'text-indigo-600', lightBg: 'bg-indigo-50', border: 'border-indigo-200' },
-      rose: { id: 'rose', name: 'Rosa Coral', bg: 'bg-rose-500', hover: 'hover:bg-rose-600', text: 'text-rose-600', lightBg: 'bg-rose-50', border: 'border-rose-200' },
-      emerald: { id: 'emerald', name: 'Verde Bosque', bg: 'bg-emerald-600', hover: 'hover:bg-emerald-700', text: 'text-emerald-600', lightBg: 'bg-emerald-50', border: 'border-emerald-200' },
-      amber: { id: 'amber', name: 'Naranja Cálido', bg: 'bg-amber-600', hover: 'hover:bg-amber-700', text: 'text-amber-600', lightBg: 'bg-amber-50', border: 'border-amber-200' },
-      dark: { id: 'dark', name: 'Oscuro Minimal', bg: 'bg-slate-800', hover: 'hover:bg-slate-900', text: 'text-slate-800', lightBg: 'bg-slate-100', border: 'border-slate-300' }
+      sky: { id: 'sky', name: 'Celeste / Azul', bg: 'bg-sky-600', hover: 'hover:bg-sky-700', text: 'text-sky-600' },
+      indigo: { id: 'indigo', name: 'Índigo Moderno', bg: 'bg-indigo-600', hover: 'hover:bg-indigo-700', text: 'text-indigo-600' },
+      rose: { id: 'rose', name: 'Rosa Coral', bg: 'bg-rose-500', hover: 'hover:bg-rose-600', text: 'text-rose-600' },
+      emerald: { id: 'emerald', name: 'Verde Bosque', bg: 'bg-emerald-600', hover: 'hover:bg-emerald-700', text: 'text-emerald-600' },
+      amber: { id: 'amber', name: 'Naranja Cálido', bg: 'bg-amber-600', hover: 'hover:bg-amber-700', text: 'text-amber-600' },
+      dark: { id: 'dark', name: 'Oscuro Minimal', bg: 'bg-slate-800', hover: 'hover:bg-slate-900', text: 'text-slate-800' }
     };
 
     const LOGO_OPTIONS = ['🏡', '❤️', '👑', '🏰', '🌿', '⭐', '☀️', '🌻', '🐾', '🔥'];
     const DAYS_LIST = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
-    let siteConfig = { familyName: 'Familia Vazquez', subtitle: 'Red Privada Familiar', announcement: '¡Bienvenidos a la app de la Familia Vazquez!', themeId: 'sky', fontStyle: 'sans', logoIcon: '🏡' };
+    let siteConfig = {
+      familyName: 'Familia Vazquez',
+      subtitle: 'Red Privada Familiar',
+      announcement: '¡Bienvenidos a la app de la Familia Vazquez!',
+      titleFeed: '📷 Muro Familiar',
+      titleAgenda: '📅 Agenda & Horarios Ocupados',
+      titleEvents: '🎉 Eventos',
+      titleAchievements: '🏆 Logros de la Familia',
+      themeId: 'sky',
+      fontStyle: 'sans',
+      logoIcon: '🏡'
+    };
+
     let members = [{ id: '1', name: 'Administradora', role: 'Administradora', email: 'Administradora', password: 'Admin123', avatar: '👑', isAdmin: true }];
     let posts = [], agenda = [], events = [], achievements = [];
     let currentUser = JSON.parse(localStorage.getItem('vazquez_session')) || null;
     let currentTab = 'feed', uploadedImageBase64 = null;
 
-    // Sincronización en tiempo real desde Firebase
     function listenToRealtimeDatabase() {
       db.collection('config').doc('main').onSnapshot(doc => {
-        if (doc.exists) { siteConfig = doc.data(); applySiteVisuals(); }
+        if (doc.exists) { 
+          siteConfig = { ...siteConfig, ...doc.data() }; 
+          applySiteVisuals(); 
+          switchTab(currentTab);
+        }
       });
 
       db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snap => {
@@ -524,10 +575,10 @@
       });
 
       const titles = {
-        feed: { title: '📷 Muro Familiar', subtitle: 'Fotos y recuerdos compartidos', actionText: 'Subir Foto' },
-        agenda: { title: '📅 Agenda & Horarios Ocupados', subtitle: 'Revisa de un vistazo cuándo entrenan o están ocupados', actionText: 'Cargar Ocupación' },
-        events: { title: '🥩 Reuniones & Asados', subtitle: 'Eventos organizados', actionText: 'Proponer Asado' },
-        achievements: { title: '🏆 Logros de la Familia', subtitle: 'Nuestros momentos especiales', actionText: 'Nuevo Logro' },
+        feed: { title: siteConfig.titleFeed || '📷 Muro Familiar', subtitle: 'Fotos y recuerdos compartidos', actionText: 'Subir Foto' },
+        agenda: { title: siteConfig.titleAgenda || '📅 Agenda & Horarios Ocupados', subtitle: 'Revisa de un vistazo cuándo entrenan o están ocupados', actionText: 'Cargar Ocupación' },
+        events: { title: siteConfig.titleEvents || '🎉 Eventos', subtitle: 'Reuniones y eventos familiares', actionText: 'Proponer Evento' },
+        achievements: { title: siteConfig.titleAchievements || '🏆 Logros de la Familia', subtitle: 'Nuestros momentos especiales', actionText: 'Agregar Logro' },
         admin: { title: '👑 Panel Administradora', subtitle: 'Gestión de cuentas', actionText: 'Crear Familiar' }
       };
 
@@ -576,7 +627,7 @@
       closeModal('modal-post');
       document.getElementById('post-content').value = '';
       document.getElementById('post-file-input').value = '';
-      showToast('¡Foto guardada en la nube!');
+      showToast('¡Foto publicada!');
     }
 
     function handleCreateAgenda(e) {
@@ -609,7 +660,7 @@
       });
 
       closeModal('modal-agenda');
-      showToast('Ocupación guardada en la nube');
+      showToast('Ocupación guardada');
     }
 
     function handleCreateEvent(e) {
@@ -623,7 +674,20 @@
         rsvps: { [currentUser.name]: 'SI' }
       });
       closeModal('modal-event');
-      showToast('Reunión propuesta y guardada');
+      showToast('Evento guardado');
+    }
+
+    function handleCreateAchievement(e) {
+      e.preventDefault();
+      if (!currentUser) return;
+      db.collection('achievements').add({
+        title: document.getElementById('achieve-title').value,
+        person: document.getElementById('achieve-person').value,
+        description: document.getElementById('achieve-desc').value,
+        badge: '🏆'
+      });
+      closeModal('modal-achievement');
+      showToast('Logro guardado');
     }
 
     function handleCreateMember(e) {
@@ -654,13 +718,17 @@
         familyName: document.getElementById('cust-family-name').value,
         subtitle: document.getElementById('cust-subtitle').value,
         announcement: document.getElementById('cust-announcement').value,
+        titleFeed: document.getElementById('cust-title-feed').value,
+        titleAgenda: document.getElementById('cust-title-agenda').value,
+        titleEvents: document.getElementById('cust-title-events').value,
+        titleAchievements: document.getElementById('cust-title-achievements').value,
         themeId: siteConfig.themeId,
         fontStyle: siteConfig.fontStyle,
         logoIcon: siteConfig.logoIcon
       });
 
       closeModal('modal-customizer');
-      showToast('¡Configuración de Administradora guardada!');
+      showToast('¡Titulos y diseño actualizados!');
     }
 
     function renderFeed() {
@@ -730,7 +798,7 @@
     function renderEvents() {
       const container = document.getElementById('events-container');
       if (events.length === 0) {
-        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-slate-200 shadow-sm col-span-2"><p class="text-4xl mb-2">🥩</p><p class="text-sm font-bold text-slate-700">Sin asados o reuniones. Propon uno.</p></div>`;
+        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-slate-200 shadow-sm col-span-2"><p class="text-4xl mb-2">🎉</p><p class="text-sm font-bold text-slate-700">Sin eventos propuestos.</p></div>`;
         return;
       }
 
@@ -789,7 +857,7 @@
         alert("Solo la Administradora puede eliminar contenido.");
         return;
       }
-      if (confirm("¿Segura que deseas eliminar este elemento de la nube?")) {
+      if (confirm("¿Segura que deseas eliminar este elemento?")) {
         db.collection(collection).doc(id).delete();
         showToast("Elemento eliminado");
       }
@@ -806,12 +874,22 @@
       openModal('modal-agenda');
     }
 
+    function openNewAchievementModal() {
+      document.getElementById('achieve-person').innerHTML = members.map(m => `<option value="${m.name}">${m.name} (${m.role})</option>`).join('');
+      openModal('modal-achievement');
+    }
+
     function openCustomizerModal() {
       if (!currentUser || !currentUser.isAdmin) return;
       document.getElementById('cust-family-name').value = siteConfig.familyName || 'Familia Vazquez';
       document.getElementById('cust-subtitle').value = siteConfig.subtitle || 'Red Privada Familiar';
       document.getElementById('cust-announcement').value = siteConfig.announcement || '';
       
+      document.getElementById('cust-title-feed').value = siteConfig.titleFeed || '📷 Muro Familiar';
+      document.getElementById('cust-title-agenda').value = siteConfig.titleAgenda || '📅 Agenda & Horarios Ocupados';
+      document.getElementById('cust-title-events').value = siteConfig.titleEvents || '🎉 Eventos';
+      document.getElementById('cust-title-achievements').value = siteConfig.titleAchievements || '🏆 Logros de la Familia';
+
       const grid = document.getElementById('theme-options-grid');
       grid.innerHTML = Object.values(COLOR_THEMES).map(t => `
         <button type="button" onclick="selectCustTheme('${t.id}')" class="p-2 rounded-xl border flex items-center space-x-2 text-xs ${siteConfig.themeId === t.id ? 'border-sky-600 bg-sky-50 font-bold' : 'border-slate-200'}">
@@ -834,7 +912,15 @@
     function selectCustFont(font) { siteConfig.fontStyle = font; openCustomizerModal(); }
     function selectCustIcon(icon) { siteConfig.logoIcon = icon; openCustomizerModal(); }
     function openNewMemberModal() { openModal('modal-member'); }
-    function openActiveActionModal() { if (currentTab === 'feed') openModal('modal-post'); else openNewAgendaModal(); }
+    
+    function openActiveActionModal() { 
+      if (currentTab === 'feed') openModal('modal-post'); 
+      else if (currentTab === 'agenda') openNewAgendaModal();
+      else if (currentTab === 'events') openModal('modal-event');
+      else if (currentTab === 'achievements') openNewAchievementModal();
+      else if (currentTab === 'admin') openNewMemberModal();
+    }
+
     function autoGenerateCredentials() {
       const name = document.getElementById('member-name').value.trim();
       if (name) document.getElementById('member-email').value = `${name.toLowerCase().replace(/\s+/g, '')}@vazquez.com`;
