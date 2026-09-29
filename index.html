@@ -90,6 +90,7 @@
       </div>
     </div>
     <div class="flex items-center gap-2">
+      <button onclick="openProfileModal()" class="p-2 rounded-xl bg-slate-800 text-sky-400 font-bold active:scale-95 transition" title="Mi Perfil">👤</button>
       <button id="admin-custom-btn-mobile" onclick="openCustomizerModal()" class="p-2 rounded-xl bg-sky-600 text-white font-bold active:scale-95 transition hidden" title="Personalizar diseño">🎨</button>
       <button onclick="logout()" class="p-2 rounded-xl bg-rose-600 text-white active:scale-95 transition" title="Cerrar sesión">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -109,16 +110,19 @@
       </div>
 
       <div class="p-3 bg-slate-800/80 m-3 rounded-2xl border border-slate-700/60 flex items-center justify-between">
-        <div class="flex items-center space-x-2.5 overflow-hidden">
+        <div class="flex items-center space-x-2.5 overflow-hidden cursor-pointer" onclick="openProfileModal()">
           <span id="current-user-avatar" class="text-2xl bg-slate-700 p-1.5 rounded-xl shrink-0">👑</span>
           <div class="overflow-hidden">
             <p id="current-user-name" class="text-xs font-bold text-white truncate">Administradora</p>
             <p id="current-user-role" class="text-[11px] text-sky-400 truncate">Administradora</p>
           </div>
         </div>
-        <button onclick="logout()" class="text-slate-400 hover:text-rose-400 p-1 rounded-lg transition" title="Cerrar sesión">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-        </button>
+        <div class="flex items-center gap-1">
+          <button onclick="openProfileModal()" class="text-slate-400 hover:text-sky-400 p-1 rounded-lg transition" title="Mi Perfil">👤</button>
+          <button onclick="logout()" class="text-slate-400 hover:text-rose-400 p-1 rounded-lg transition" title="Cerrar sesión">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+          </button>
+        </div>
       </div>
 
       <nav class="p-3 space-y-1.5 flex-1">
@@ -138,7 +142,12 @@
           <div class="flex items-center space-x-3"><span>🏆</span><span>Logros de la Familia</span></div>
         </button>
 
-        <div id="admin-sidebar-menu" class="pt-3 mt-3 border-t border-slate-800 space-y-1.5">
+        <button onclick="openProfileModal()" class="w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition">
+          <span>👤</span><span>Mi Perfil & Avatar</span>
+        </button>
+
+        <!-- SECCIÓN SOLO VISIBLE PARA ADMINISTRADORA -->
+        <div id="admin-sidebar-menu" class="pt-3 mt-3 border-t border-slate-800 space-y-1.5 hidden">
           <p class="px-3 text-[10px] uppercase font-bold text-slate-400 tracking-wider">Administradora</p>
           <button onclick="switchTab('admin')" id="nav-btn-admin" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition">
             <div class="flex items-center space-x-2"><span>👑</span><span>Gestión de Cuentas</span></div>
@@ -197,6 +206,7 @@
       <section id="tab-events" class="hidden space-y-6"><div id="events-container" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div></section>
       <section id="tab-achievements" class="hidden space-y-4"><div id="achievements-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div></section>
       
+      <!-- PESTAÑA ADMIN (SÓLO VISIBLE PARA ADMINISTRADORA) -->
       <section id="tab-admin" class="hidden space-y-6">
         <div class="bg-slate-900 text-white p-5 rounded-3xl flex justify-between items-center">
           <div>
@@ -216,10 +226,32 @@
     <button onclick="switchTab('agenda')" id="mobile-dock-agenda" class="flex flex-col items-center p-1 text-slate-400"><span class="text-lg">📅</span>Agenda</button>
     <button onclick="switchTab('events')" id="mobile-dock-events" class="flex flex-col items-center p-1 text-slate-400"><span class="text-lg">🎉</span>Eventos</button>
     <button onclick="switchTab('achievements')" id="mobile-dock-achievements" class="flex flex-col items-center p-1 text-slate-400"><span class="text-lg">🏆</span>Logros</button>
-    <button onclick="switchTab('admin')" id="mobile-dock-admin" class="flex flex-col items-center p-1 text-slate-400"><span class="text-lg">👑</span>Admin</button>
+    <button onclick="openProfileModal()" class="flex flex-col items-center p-1 text-slate-400"><span class="text-lg">👤</span>Perfil</button>
+    <button onclick="switchTab('admin')" id="mobile-dock-admin" class="flex flex-col items-center p-1 text-slate-400 hidden"><span class="text-lg">👑</span>Admin</button>
   </nav>
 
-  <!-- MODAL: Customizer -->
+  <!-- MODAL: Mi Perfil (Avatar y Nombre) -->
+  <div id="modal-profile" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+        <h3 class="font-bold text-base text-slate-900">👤 Editar Mi Perfil</h3>
+        <button onclick="closeModal('modal-profile')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      </div>
+      <form onsubmit="handleSaveProfile(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Mi Nombre</label>
+          <input type="text" id="profile-name-input" required class="w-full border rounded-xl p-2.5 text-sm font-semibold">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Elegir Mi Avatar</label>
+          <div class="grid grid-cols-6 gap-2" id="avatar-options-grid"></div>
+        </div>
+        <button type="submit" class="w-full bg-sky-600 text-white font-bold py-3 rounded-xl text-sm shadow">Guardar Cambios de Perfil</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: Customizer (Admin) -->
   <div id="modal-customizer" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b border-slate-100 pb-2">
@@ -427,6 +459,7 @@
     };
 
     const LOGO_OPTIONS = ['🏡', '❤️', '👑', '🏰', '🌿', '⭐', '☀️', '🌻', '🐾', '🔥'];
+    const AVATAR_OPTIONS = ['👩', '👨', '👧', '👦', '👵', '👴', '👩‍💼', '👑', '🐶', '🐱', '⚽', '🎨'];
     const DAYS_LIST = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
     let siteConfig = {
@@ -445,7 +478,7 @@
     let members = [{ id: '1', name: 'Administradora', role: 'Administradora', email: 'Administradora', password: 'Admin123', avatar: '👑', isAdmin: true }];
     let posts = [], agenda = [], events = [], achievements = [];
     let currentUser = JSON.parse(localStorage.getItem('vazquez_session')) || null;
-    let currentTab = 'feed', compressedImageBase64 = null;
+    let currentTab = 'feed', compressedImageBase64 = null, selectedAvatarTemp = '👤';
 
     function listenToRealtimeDatabase() {
       db.collection('config').doc('main').onSnapshot(doc => {
@@ -479,6 +512,14 @@
       db.collection('members').onSnapshot(snap => {
         if (!snap.empty) {
           members = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          if (currentUser) {
+            const updatedSelf = members.find(m => m.id === currentUser.id);
+            if (updatedSelf) {
+              currentUser = updatedSelf;
+              localStorage.setItem('vazquez_session', JSON.stringify(currentUser));
+              updateUserUI();
+            }
+          }
         }
         renderMembers();
       });
@@ -530,7 +571,7 @@
         document.getElementById('login-username').value = '';
         document.getElementById('login-password').value = '';
         updateUserUI();
-        showToast(`¡Bienvenida, ${currentUser.name}!`);
+        showToast(`¡Bienvenida/o, ${currentUser.name}!`);
       } else {
         document.getElementById('login-error').classList.remove('hidden');
       }
@@ -551,7 +592,9 @@
       document.getElementById('mobile-user-status').innerText = `${currentUser.name} ${currentUser.isAdmin ? '👑' : ''}`;
       
       const isAdmin = currentUser.isAdmin;
+      // EL PANEL Y BOTONES ADMIN SOLO SON VISIBLES PARA LA ADMINISTRADORA
       document.getElementById('admin-sidebar-menu').style.display = isAdmin ? 'block' : 'none';
+      document.getElementById('mobile-dock-admin').style.display = isAdmin ? 'flex' : 'none';
       document.getElementById('admin-custom-btn-top').style.display = isAdmin ? 'flex' : 'none';
       document.getElementById('admin-custom-btn-mobile').style.display = isAdmin ? 'block' : 'none';
       document.getElementById('admin-edit-banner-btn').style.display = isAdmin ? 'inline-block' : 'none';
@@ -572,6 +615,9 @@
     }
 
     function switchTab(tabId) {
+      if (tabId === 'admin' && (!currentUser || !currentUser.isAdmin)) {
+        tabId = 'feed';
+      }
       currentTab = tabId;
       ['feed', 'agenda', 'events', 'achievements', 'admin'].forEach(t => {
         const el = document.getElementById(`tab-${t}`);
@@ -607,7 +653,6 @@
       if (tabId === 'admin') renderMembers();
     }
 
-    // COMPRESOR Y REDIMENSIONADOR AUTOMÁTICO DE IMÁGENES
     function previewAndCompressImage(event) {
       const file = event.target.files[0];
       if (!file) return;
@@ -623,7 +668,7 @@
           const canvas = document.createElement('canvas');
           let width = img.width;
           let height = img.height;
-          const maxDim = 800; // Ancho/alto máximo optimizado para celulares y web
+          const maxDim = 800;
 
           if (width > height) {
             if (width > maxDim) {
@@ -642,7 +687,6 @@
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, width, height);
 
-          // Calidad JPEG comprimida para Firestore
           compressedImageBase64 = canvas.toDataURL('image/jpeg', 0.65);
 
           const previewImg = document.getElementById('image-preview');
@@ -672,7 +716,7 @@
         imageUrl: compressedImageBase64 || null,
         dateStr: 'Hoy',
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        reactions: { '❤️': 0, '😂': 0, '👏': 0, '🎉': 0 },
+        reactions: {},
         comments: []
       }).then(() => {
         btn.disabled = false;
@@ -681,18 +725,33 @@
         document.getElementById('post-content').value = '';
         document.getElementById('post-file-input').value = '';
         compressedImageBase64 = null;
-        showToast('¡Foto publicada y guardada!');
-      }).catch(err => {
+        showToast('¡Foto publicada!');
+      }).catch(() => {
         btn.disabled = false;
         btn.innerText = 'Publicar Foto';
-        alert('Error al subir la imagen. Intenta con otra foto.');
+        alert('Error al subir la imagen.');
       });
     }
 
-    function reactToItem(collection, id, emoji, currentReactions = {}) {
+    // REACCIONES CON NOMBRES Y OPCIÓN DE QUITAR REACCIÓN
+    function reactToItemWithUser(collection, id, emoji, currentReactionsMap = {}) {
       if (!currentUser) return;
-      const updated = { ...currentReactions, [emoji]: (currentReactions[emoji] || 0) + 1 };
-      db.collection(collection).doc(id).update({ reactions: updated });
+      const reactions = { ...currentReactionsMap };
+      const myName = currentUser.name;
+
+      if (!reactions[emoji]) reactions[emoji] = [];
+
+      const userIndex = reactions[emoji].indexOf(myName);
+      if (userIndex > -1) {
+        // Si ya había reaccionado con ese emoji, SE QUITA
+        reactions[emoji].splice(userIndex, 1);
+        if (reactions[emoji].length === 0) delete reactions[emoji];
+      } else {
+        // Agrega el nombre
+        reactions[emoji].push(myName);
+      }
+
+      db.collection(collection).doc(id).update({ reactions: reactions });
     }
 
     function addCommentToPost(postId) {
@@ -762,11 +821,23 @@
       showToast('Evento guardado');
     }
 
-    function voteEventRsvp(eventId, status, currentRsvps = {}) {
+    // VOTACIÓN CON OPCIÓN DE CAMBIAR / QUITAR VOTO
+    function toggleEventRsvp(eventId, status, currentRsvps = {}) {
       if (!currentUser) return;
-      const updated = { ...currentRsvps, [currentUser.name]: status };
+      const updated = { ...currentRsvps };
+      const myName = currentUser.name;
+
+      if (updated[myName] === status) {
+        // Si vuelve a presionar el mismo voto, SE QUITA
+        delete updated[myName];
+        showToast("Removiste tu voto");
+      } else {
+        // Actualiza o agrega voto
+        updated[myName] = status;
+        showToast(`Tu voto (${status === 'SI' ? 'Voy' : status === 'NO' ? 'No voy' : 'Tal vez'}) fue registrado`);
+      }
+
       db.collection('events').doc(eventId).update({ rsvps: updated });
-      showToast(`Tu voto (${status}) fue registrado`);
     }
 
     function handleCreateAchievement(e) {
@@ -777,7 +848,7 @@
         person: document.getElementById('achieve-person').value,
         description: document.getElementById('achieve-desc').value,
         badge: '🏆',
-        reactions: { '❤️': 0, '👏': 0, '🎉': 0 }
+        reactions: {}
       });
       closeModal('modal-achievement');
       showToast('Logro guardado');
@@ -803,6 +874,46 @@
       showToast(`¡Usuario creado para ${name}!`);
     }
 
+    // MANEJO DE SECCIÓN "MI PERFIL" PARA CAMBIAR NOMBRE Y AVATAR
+    function openProfileModal() {
+      if (!currentUser) return;
+      document.getElementById('profile-name-input').value = currentUser.name;
+      selectedAvatarTemp = currentUser.avatar || '👤';
+
+      const grid = document.getElementById('avatar-options-grid');
+      grid.innerHTML = AVATAR_OPTIONS.map(av => `
+        <button type="button" onclick="selectAvatarTemp('${av}')" class="text-2xl p-2 rounded-2xl border transition ${selectedAvatarTemp === av ? 'bg-sky-100 border-sky-500 scale-105 ring-2 ring-sky-400' : 'border-slate-200 hover:bg-slate-50'}">
+          ${av}
+        </button>
+      `).join('');
+
+      openModal('modal-profile');
+    }
+
+    function selectAvatarTemp(av) {
+      selectedAvatarTemp = av;
+      openProfileModal();
+    }
+
+    function handleSaveProfile(e) {
+      e.preventDefault();
+      if (!currentUser) return;
+      const newName = document.getElementById('profile-name-input').value.trim();
+      if (!newName) return;
+
+      db.collection('members').doc(currentUser.id).update({
+        name: newName,
+        avatar: selectedAvatarTemp
+      }).then(() => {
+        currentUser.name = newName;
+        currentUser.avatar = selectedAvatarTemp;
+        localStorage.setItem('vazquez_session', JSON.stringify(currentUser));
+        updateUserUI();
+        closeModal('modal-profile');
+        showToast('¡Tu perfil fue actualizado!');
+      });
+    }
+
     function handleSaveCustomizer(e) {
       e.preventDefault();
       if (!currentUser || !currentUser.isAdmin) return;
@@ -821,7 +932,7 @@
       });
 
       closeModal('modal-customizer');
-      showToast('¡Titulos y diseño actualizados!');
+      showToast('¡Títulos y diseño actualizados!');
     }
 
     function renderFeed() {
@@ -834,6 +945,8 @@
       container.innerHTML = posts.map(p => {
         const canDelete = currentUser && (p.authorName === currentUser.name || currentUser.isAdmin);
         const comments = p.comments || [];
+        const reactionsMap = p.reactions || {};
+
         return `
           <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden animate-card">
             <div class="p-4 flex items-center justify-between border-b border-slate-100">
@@ -852,17 +965,26 @@
               ${p.imageUrl ? `<div class="rounded-2xl overflow-hidden bg-slate-100 max-h-96 border border-slate-200"><img src="${p.imageUrl}" class="w-full h-full object-cover"></div>` : ''}
             </div>
 
-            <!-- Reacciones con Emojis -->
+            <!-- Reacciones con Nombres -->
             <div class="px-5 py-2.5 bg-slate-50 border-t border-slate-100 flex items-center space-x-2 overflow-x-auto">
-              ${['❤️', '😂', '👏', '🎉'].map(emoji => `
-                <button onclick="reactToItem('posts', '${p.id}', '${emoji}',${JSON.stringify(p.reactions || {}).replace(/"/g, '&quot;')})" class="bg-white border border-slate-200 hover:border-sky-400 px-3 py-1 rounded-full text-xs transition shadow-sm flex items-center space-x-1 active:scale-95">
-                  <span>${emoji}</span>
-                  <span class="font-bold text-slate-600">${p.reactions?.[emoji] || 0}</span>
-                </button>
-              `).join('')}
+              ${['❤️', '😂', '👏', '🎉'].map(emoji => {
+                const userList = Array.isArray(reactionsMap[emoji]) ? reactionsMap[emoji] : [];
+                const count = userList.length;
+                const hasReacted = currentUser && userList.includes(currentUser.name);
+                const tooltipText = count > 0 ? `Reaccionaron: ${userList.join(', ')}` : 'Haz clic para reaccionar';
+
+                return `
+                  <button onclick="reactToItemWithUser('posts', '${p.id}', '${emoji}',${JSON.stringify(reactionsMap).replace(/"/g, '&quot;')})" 
+                          title="${tooltipText}"
+                          class="bg-white border ${hasReacted ? 'border-sky-500 bg-sky-50/60 font-bold' : 'border-slate-200'} hover:border-sky-400 px-3 py-1 rounded-full text-xs transition shadow-xs flex items-center space-x-1.5 active:scale-95">
+                    <span>${emoji}</span>
+                    <span class="text-slate-700">${count}</span>
+                  </button>
+                `;
+              }).join('')}
             </div>
 
-            <!-- Sección de Comentarios -->
+            <!-- Comentarios -->
             <div class="p-4 bg-slate-50/60 border-t border-slate-100 space-y-3">
               <div class="space-y-2">
                 ${comments.map(c => `
@@ -876,7 +998,6 @@
                 `).join('')}
               </div>
 
-              <!-- Input para agregar comentario -->
               <div class="flex gap-2 pt-1">
                 <input type="text" id="comment-input-${p.id}" placeholder="Escribe un comentario..." class="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs outline-none focus:ring-1 focus:ring-sky-500">
                 <button onclick="addCommentToPost('${p.id}')" class="bg-sky-600 hover:bg-sky-700 text-white px-3 py-1.5 rounded-xl font-bold text-xs shadow transition">Comentar</button>
@@ -929,8 +1050,9 @@
       }
 
       container.innerHTML = events.map(e => {
-        const myStatus = currentUser ? e.rsvps?.[currentUser.name] : null;
         const rsvps = e.rsvps || {};
+        const myStatus = currentUser ? rsvps[currentUser.name] : null;
+
         return `
           <div class="bg-white rounded-3xl border p-5 space-y-3 shadow-sm flex flex-col justify-between">
             <div class="space-y-2">
@@ -945,22 +1067,20 @@
               <p class="text-xs md:text-sm text-slate-600">${e.description}</p>
             </div>
 
-            <!-- Votación de Asistencia -->
             <div class="border-t border-slate-100 pt-3 space-y-2">
               <p class="text-xs font-semibold text-slate-600">¿Asistirás (${currentUser ? currentUser.name : ''})?</p>
               <div class="grid grid-cols-3 gap-2">
-                <button onclick="voteEventRsvp('${e.id}', 'SI', ${JSON.stringify(rsvps).replace(/"/g, '&quot;')})" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'SI' ? 'bg-emerald-600 text-white border-emerald-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
+                <button onclick="toggleEventRsvp('${e.id}', 'SI', ${JSON.stringify(rsvps).replace(/"/g, '&quot;')})" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'SI' ? 'bg-emerald-600 text-white border-emerald-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
                   ✓ Voy
                 </button>
-                <button onclick="voteEventRsvp('${e.id}', 'TAL_VEZ', ${JSON.stringify(rsvps).replace(/"/g, '&quot;')})" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'TAL_VEZ' ? 'bg-amber-500 text-white border-amber-500 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
+                <button onclick="toggleEventRsvp('${e.id}', 'TAL_VEZ', ${JSON.stringify(rsvps).replace(/"/g, '&quot;')})" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'TAL_VEZ' ? 'bg-amber-500 text-white border-amber-500 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
                   ? Tal vez
                 </button>
-                <button onclick="voteEventRsvp('${e.id}', 'NO', ${JSON.stringify(rsvps).replace(/"/g, '&quot;')})" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'NO' ? 'bg-rose-600 text-white border-rose-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
+                <button onclick="toggleEventRsvp('${e.id}', 'NO', ${JSON.stringify(rsvps).replace(/"/g, '&quot;')})" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'NO' ? 'bg-rose-600 text-white border-rose-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
                   ✕ No voy
                 </button>
               </div>
 
-              <!-- Lista de Confirmados -->
               <div class="pt-2 flex flex-wrap gap-1">
                 ${Object.entries(rsvps).map(([name, status]) => `
                   <span class="text-[10px] px-2 py-0.5 rounded-full font-medium ${
@@ -984,34 +1104,52 @@
         return;
       }
 
-      container.innerHTML = achievements.map(a => `
-        <div class="p-5 rounded-3xl border bg-sky-50/50 shadow-sm space-y-3 animate-card">
-          <div class="flex items-start justify-between">
-            <div class="flex space-x-3 items-start">
-              <div class="text-3xl p-2 bg-white rounded-2xl shadow-xs">${a.badge || '🏆'}</div>
-              <div>
-                <h4 class="font-bold text-sm md:text-base">${a.title}</h4>
-                <p class="text-xs font-semibold text-sky-700">Familiar: ${a.person}</p>
-                <p class="text-slate-600 text-xs mt-1">${a.description}</p>
+      container.innerHTML = achievements.map(a => {
+        const reactionsMap = a.reactions || {};
+        return `
+          <div class="p-5 rounded-3xl border bg-sky-50/50 shadow-sm space-y-3 animate-card">
+            <div class="flex items-start justify-between">
+              <div class="flex space-x-3 items-start">
+                <div class="text-3xl p-2 bg-white rounded-2xl shadow-xs">${a.badge || '🏆'}</div>
+                <div>
+                  <h4 class="font-bold text-sm md:text-base">${a.title}</h4>
+                  <p class="text-xs font-semibold text-sky-700">Familiar: ${a.person}</p>
+                  <p class="text-slate-600 text-xs mt-1">${a.description}</p>
+                </div>
               </div>
+              ${currentUser && currentUser.isAdmin ? `<button onclick="deleteDoc('achievements', '${a.id}')" class="text-slate-400 hover:text-rose-500 font-bold text-xs">✕</button>` : ''}
             </div>
-            ${currentUser && currentUser.isAdmin ? `<button onclick="deleteDoc('achievements', '${a.id}')" class="text-slate-400 hover:text-rose-500 font-bold text-xs">✕</button>` : ''}
-          </div>
 
-          <!-- Reacciones a Logros -->
-          <div class="pt-2 border-t border-slate-200/60 flex items-center space-x-2">
-            ${['❤️', '👏', '🎉'].map(emoji => `
-              <button onclick="reactToItem('achievements', '${a.id}', '${emoji}',${JSON.stringify(a.reactions || {}).replace(/"/g, '&quot;')})" class="bg-white border border-slate-200 hover:border-sky-400 px-2.5 py-0.5 rounded-full text-xs transition shadow-xs flex items-center space-x-1 active:scale-95">
-                <span>${emoji}</span>
-                <span class="font-bold text-slate-600">${a.reactions?.[emoji] || 0}</span>
-              </button>
-            `).join('')}
+            <!-- Reacciones a Logros con Nombres -->
+            <div class="pt-2 border-t border-slate-200/60 flex items-center space-x-2">
+              ${['❤️', '👏', '🎉'].map(emoji => {
+                const userList = Array.isArray(reactionsMap[emoji]) ? reactionsMap[emoji] : [];
+                const count = userList.length;
+                const hasReacted = currentUser && userList.includes(currentUser.name);
+                const tooltipText = count > 0 ? `Reaccionaron: ${userList.join(', ')}` : 'Haz clic para reaccionar';
+
+                return `
+                  <button onclick="reactToItemWithUser('achievements', '${a.id}', '${emoji}',${JSON.stringify(reactionsMap).replace(/"/g, '&quot;')})" 
+                          title="${tooltipText}"
+                          class="bg-white border ${hasReacted ? 'border-sky-500 bg-sky-50/60 font-bold' : 'border-slate-200'} hover:border-sky-400 px-2.5 py-0.5 rounded-full text-xs transition shadow-xs flex items-center space-x-1 active:scale-95">
+                    <span>${emoji}</span>
+                    <span class="text-slate-600">${count}</span>
+                  </button>
+                `;
+              }).join('')}
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function renderMembers() {
+      // SOLO SE RENDERIZAN LAS CUENTAS SI ES LA ADMINISTRADORA
+      if (!currentUser || !currentUser.isAdmin) {
+        document.getElementById('members-list-container').innerHTML = '';
+        return;
+      }
+
       document.getElementById('members-list-container').innerHTML = members.map(m => `
         <div class="border bg-white rounded-3xl p-4 shadow-sm space-y-2 text-xs">
           <div class="flex items-center space-x-2">
@@ -1022,7 +1160,7 @@
             <p>Usuario: ${m.email}</p>
             <p>Clave: ${m.password}</p>
           </div>
-          ${currentUser && currentUser.isAdmin && !m.isAdmin ? `<button onclick="deleteDoc('members', '${m.id}')" class="text-rose-600 font-bold text-[10px]">Eliminar Cuenta</button>` : ''}
+          ${!m.isAdmin ? `<button onclick="deleteDoc('members', '${m.id}')" class="text-rose-600 font-bold text-[10px]">Eliminar Cuenta</button>` : ''}
         </div>
       `).join('');
     }
@@ -1042,8 +1180,6 @@
     function closeModal(id) { 
       document.getElementById(id).classList.add('hidden');
       compressedImageBase64 = null;
-      const prev = document.getElementById('image-preview-container');
-      if (prev) prev.classList.add('hidden');
     }
 
     function openNewAgendaModal() {
