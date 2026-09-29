@@ -458,7 +458,7 @@
       dark: { id: 'dark', name: 'Oscuro Minimal', bg: 'bg-slate-800', hover: 'hover:bg-slate-900', text: 'text-slate-800' }
     };
 
-    const LOGO_OPTIONS = ['🏡', '❤️', '👑', '🏰', '🌿', '⭐', '☀️', '🌻', '🐾', '🔥'];
+    const LOGO_OPTIONS = ['🏡', '❤️', '👑', '🏰', '🌿', '⭐', '☀️️', '🌻', '🐾', '🔥'];
     const AVATAR_OPTIONS = ['👩', '👨', '👧', '👦', '👵', '👴', '👩‍💼', '👑', '🐶', '🐱', '⚽', '🎨'];
     const DAYS_LIST = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
@@ -513,9 +513,9 @@
         if (!snap.empty) {
           members = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           if (currentUser) {
-            const updatedSelf = members.find(m => m.id === currentUser.id);
+            const updatedSelf = members.find(m => m.id === currentUser.id || m.email.toLowerCase() === currentUser.email.toLowerCase());
             if (updatedSelf) {
-              currentUser = updatedSelf;
+              currentUser = { ...currentUser, ...updatedSelf };
               localStorage.setItem('vazquez_session', JSON.stringify(currentUser));
               updateUserUI();
             }
@@ -733,7 +733,6 @@
       });
     }
 
-    // REACCIONES CON NOMBRES Y OPCIÓN DE QUITAR REACCIÓN
     function reactToItemWithUser(collection, id, emoji, currentReactionsMap = {}) {
       if (!currentUser) return;
       const reactions = { ...currentReactionsMap };
@@ -743,11 +742,9 @@
 
       const userIndex = reactions[emoji].indexOf(myName);
       if (userIndex > -1) {
-        // Si ya había reaccionado con ese emoji, SE QUITA
         reactions[emoji].splice(userIndex, 1);
         if (reactions[emoji].length === 0) delete reactions[emoji];
       } else {
-        // Agrega el nombre
         reactions[emoji].push(myName);
       }
 
@@ -821,18 +818,15 @@
       showToast('Evento guardado');
     }
 
-    // VOTACIÓN CON OPCIÓN DE CAMBIAR / QUITAR VOTO
     function toggleEventRsvp(eventId, status, currentRsvps = {}) {
       if (!currentUser) return;
       const updated = { ...currentRsvps };
       const myName = currentUser.name;
 
       if (updated[myName] === status) {
-        // Si vuelve a presionar el mismo voto, SE QUITA
         delete updated[myName];
         showToast("Removiste tu voto");
       } else {
-        // Actualiza o agrega voto
         updated[myName] = status;
         showToast(`Tu voto (${status === 'SI' ? 'Voy' : status === 'NO' ? 'No voy' : 'Tal vez'}) fue registrado`);
       }
@@ -874,7 +868,7 @@
       showToast(`¡Usuario creado para ${name}!`);
     }
 
-    // MANEJO DE SECCIÓN "MI PERFIL" PARA CAMBIAR NOMBRE Y AVATAR
+    // AHORA PERMITE GUARDAR EL AVATAR Y NOMBRE CORRECTAMENTE EN FIREBASE
     function openProfileModal() {
       if (!currentUser) return;
       document.getElementById('profile-name-input').value = currentUser.name;
@@ -901,16 +895,25 @@
       const newName = document.getElementById('profile-name-input').value.trim();
       if (!newName) return;
 
-      db.collection('members').doc(currentUser.id).update({
+      const userDocRef = currentUser.id ? db.collection('members').doc(currentUser.id) : db.collection('members').doc();
+
+      userDocRef.set({
         name: newName,
-        avatar: selectedAvatarTemp
-      }).then(() => {
+        role: currentUser.role || 'Familiar',
+        email: currentUser.email || newName,
+        password: currentUser.password || 'vazquez123',
+        avatar: selectedAvatarTemp,
+        isAdmin: !!currentUser.isAdmin
+      }, { merge: true }).then(() => {
+        currentUser.id = userDocRef.id;
         currentUser.name = newName;
         currentUser.avatar = selectedAvatarTemp;
         localStorage.setItem('vazquez_session', JSON.stringify(currentUser));
         updateUserUI();
         closeModal('modal-profile');
-        showToast('¡Tu perfil fue actualizado!');
+        showToast('¡Tu perfil y avatar fueron actualizados!');
+      }).catch(err => {
+        alert("Error al actualizar el perfil. Intenta de nuevo.");
       });
     }
 
@@ -1144,7 +1147,6 @@
     }
 
     function renderMembers() {
-      // SOLO SE RENDERIZAN LAS CUENTAS SI ES LA ADMINISTRADORA
       if (!currentUser || !currentUser.isAdmin) {
         document.getElementById('members-list-container').innerHTML = '';
         return;
