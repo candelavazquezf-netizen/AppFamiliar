@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Red Social Familiar</title>
+  <title>Red Social Familiar - Familia Vazquez</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter, Playfair & JetBrains Mono -->
+  <!-- Google Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   
   <script>
     tailwind.config = {
@@ -17,7 +17,6 @@
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
             mono: ['JetBrains Mono', 'monospace'],
           }
         }
@@ -30,7 +29,7 @@
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #f8fafc;
+      background: #f1f5f9;
     }
     ::-webkit-scrollbar-thumb {
       background: #cbd5e1;
@@ -51,17 +50,17 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col md:flex-row pb-20 md:pb-0 select-none">
+<body class="bg-sky-50/50 text-slate-800 font-sans min-h-screen flex flex-col md:flex-row pb-20 md:pb-0 select-none">
 
   <!-- MODAL OBLIGATORIO DE LOGIN -->
   <div id="login-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-8 space-y-6 shadow-2xl border border-slate-100 text-center animate-card">
+    <div class="bg-white rounded-3xl max-w-md w-full p-8 space-y-6 shadow-2xl border border-sky-100 text-center animate-card">
       <div>
-        <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner">
+        <div class="w-16 h-16 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner">
           🏡
         </div>
-        <h2 class="text-2xl font-black text-slate-900">Bienvenido a la App Familiar</h2>
-        <p class="text-xs text-slate-500 mt-1">Por favor inicia sesión para continuar</p>
+        <h2 class="text-2xl font-black text-slate-900">Familia Vazquez</h2>
+        <p class="text-xs text-slate-500 mt-1">Ingresa tus credenciales para continuar</p>
       </div>
 
       <form onsubmit="handleLogin(event)" class="space-y-4 text-left">
@@ -71,23 +70,23 @@
 
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Usuario</label>
-          <input type="text" id="login-username" required class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Ej: Administradora">
+          <input type="text" id="login-username" required class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Ej: Administradora">
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Contraseña</label>
-          <input type="password" id="login-password" required class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="••••••••">
+          <input type="password" id="login-password" required class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-sky-500 outline-none" placeholder="••••••••">
         </div>
 
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-indigo-200 transition active:scale-95">
-          Ingresar
+        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-sky-200 transition active:scale-95">
+          Ingresar a la App
         </button>
       </form>
     </div>
   </div>
 
   <!-- Toast Notification element -->
-  <div id="toast" class="fixed top-5 right-5 z-50 transform transition-all duration-300 translate-y-[-100px] opacity-0 pointer-events-none bg-emerald-600 text-white font-bold text-xs md:text-sm px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2">
+  <div id="toast" class="fixed top-5 right-5 z-50 transform transition-all duration-300 translate-y-[-100px] opacity-0 pointer-events-none bg-sky-600 text-white font-bold text-xs md:text-sm px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-2">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
     <span id="toast-text">Mensaje</span>
   </div>
@@ -97,14 +96,11 @@
     <div class="flex items-center space-x-3">
       <span id="mobile-brand-icon" class="text-2xl">🏡</span>
       <div class="overflow-hidden">
-        <h1 id="mobile-brand-title" class="font-bold text-sm text-white truncate max-w-[170px]">Familia González</h1>
-        <p id="mobile-user-status" class="text-[10px] text-slate-400 truncate">Administradora 👑</p>
+        <h1 id="mobile-brand-title" class="font-bold text-sm text-white truncate max-w-[170px]">Familia Vazquez</h1>
+        <p id="mobile-user-status" class="text-[10px] text-sky-300 truncate">Administradora 👑</p>
       </div>
     </div>
     <div class="flex items-center gap-2">
-      <button onclick="openCustomizerModal()" class="p-2 rounded-xl bg-indigo-500 text-white font-bold active:scale-95 transition" title="Personalizar diseño">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
-      </button>
       <button onclick="logout()" class="p-2 rounded-xl bg-rose-600 text-white active:scale-95 transition" title="Cerrar sesión">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
       </button>
@@ -116,12 +112,12 @@
     <div class="flex flex-col h-full overflow-y-auto">
       <!-- Brand header -->
       <div class="p-5 border-b border-slate-800 flex items-center space-x-3">
-        <div id="desktop-brand-icon" class="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-xl shadow-lg shrink-0">
+        <div id="desktop-brand-icon" class="w-10 h-10 rounded-2xl bg-sky-600 flex items-center justify-center text-xl shadow-lg shrink-0">
           🏡
         </div>
         <div class="overflow-hidden">
-          <h1 id="desktop-brand-title" class="font-black text-base text-white truncate">Familia González</h1>
-          <p id="desktop-brand-subtitle" class="text-xs text-slate-400 truncate">Nuestra Red Privada</p>
+          <h1 id="desktop-brand-title" class="font-black text-base text-white truncate">Familia Vazquez</h1>
+          <p id="desktop-brand-subtitle" class="text-xs text-sky-400 truncate">Red Privada Argentina</p>
         </div>
       </div>
 
@@ -133,7 +129,7 @@
             <p id="current-user-name" class="text-xs font-bold text-white truncate flex items-center gap-1">
               Administradora
             </p>
-            <p id="current-user-role" class="text-[11px] text-indigo-400 truncate">Administradora</p>
+            <p id="current-user-role" class="text-[11px] text-sky-400 truncate">Administradora</p>
           </div>
         </div>
         <button onclick="logout()" class="text-slate-400 hover:text-rose-400 p-1 rounded-lg transition" title="Cerrar sesión">
@@ -143,20 +139,20 @@
 
       <!-- Navigation Menu -->
       <nav class="p-3 space-y-1.5 flex-1">
-        <button onclick="switchTab('feed')" id="nav-btn-feed" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-indigo-600 text-white shadow transition">
+        <button onclick="switchTab('feed')" id="nav-btn-feed" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-sky-600 text-white shadow transition">
           <div class="flex items-center space-x-3">
             <span class="text-base">📷</span>
             <span>Muro Familiar</span>
           </div>
-          <span id="badge-feed" class="text-[10px] bg-black/25 px-2 py-0.5 rounded-full">2</span>
+          <span id="badge-feed" class="text-[10px] bg-black/25 px-2 py-0.5 rounded-full">1</span>
         </button>
 
         <button onclick="switchTab('agenda')" id="nav-btn-agenda" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition">
           <div class="flex items-center space-x-3">
             <span class="text-base">📅</span>
-            <span>Calendario & Agenda</span>
+            <span>Calendario Argentina</span>
           </div>
-          <span id="badge-agenda" class="text-[10px] bg-indigo-500 text-white font-bold px-2 py-0.5 rounded-full">Hoy</span>
+          <span id="badge-agenda" class="text-[10px] bg-sky-500 text-white font-bold px-2 py-0.5 rounded-full">Sept</span>
         </button>
 
         <button onclick="switchTab('events')" id="nav-btn-events" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition">
@@ -172,15 +168,7 @@
             <span class="text-base">🏆</span>
             <span>Logros de la Familia</span>
           </div>
-          <span id="badge-achievements" class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full">2</span>
-        </button>
-
-        <button onclick="switchTab('trivia')" id="nav-btn-trivia" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition">
-          <div class="flex items-center space-x-3">
-            <span class="text-base">✨</span>
-            <span>Anécdotas & Frases</span>
-          </div>
-          <span id="badge-trivia" class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full">3</span>
+          <span id="badge-achievements" class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full">1</span>
         </button>
 
         <!-- Admin Only Menu Section -->
@@ -189,14 +177,9 @@
           <button onclick="switchTab('admin')" id="nav-btn-admin" class="nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition">
             <div class="flex items-center space-x-2">
               <span>👑</span>
-              <span>Gestión de Familiares</span>
+              <span>Gestión de Cuentas</span>
             </div>
-            <span id="badge-members" class="text-[10px] bg-black/40 px-2 py-0.5 rounded-full">5</span>
-          </button>
-          
-          <button onclick="openCustomizerModal()" class="w-full flex items-center space-x-2 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-indigo-400 hover:bg-slate-800 transition">
-            <span>🎨</span>
-            <span>Editar Colores & Textos</span>
+            <span id="badge-members" class="text-[10px] bg-black/40 px-2 py-0.5 rounded-full">2</span>
           </button>
         </div>
       </nav>
@@ -206,12 +189,11 @@
   <!-- Main Content View -->
   <main class="flex-1 flex flex-col min-h-screen overflow-y-auto">
     <!-- Announcement Banner -->
-    <div id="announcement-banner" class="bg-indigo-50 border-b border-indigo-100 px-4 md:px-6 py-2.5 text-xs text-slate-800 flex items-center justify-between">
+    <div id="announcement-banner" class="bg-sky-100/80 border-b border-sky-200 px-4 md:px-6 py-2.5 text-xs text-slate-800 flex items-center justify-between">
       <div class="flex items-center space-x-2 overflow-hidden">
-        <span class="text-indigo-600 shrink-0 font-bold">📢</span>
-        <span id="announcement-text" class="font-medium truncate">¡Bienvenidos a nuestra red! Recuerden consultar el Calendario para saber cuándo llamar.</span>
+        <span class="text-sky-700 shrink-0 font-bold">📢</span>
+        <span id="announcement-text" class="font-medium truncate">¡Bienvenidos a la app de la Familia Vazquez! Sube tus fotos y revisa los horarios.</span>
       </div>
-      <button onclick="openCustomizerModal()" class="text-[11px] underline text-slate-500 hover:text-slate-800 ml-2 shrink-0 font-semibold">Editar</button>
     </div>
 
     <!-- Top Action Toolbar -->
@@ -225,16 +207,16 @@
         </p>
       </div>
 
-      <!-- Action Button -->
+      <!-- Action Buttons -->
       <div class="flex items-center gap-2">
-        <button id="main-action-btn" onclick="openActiveActionModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3.5 py-2 md:px-4 md:py-2.5 rounded-xl flex items-center space-x-1.5 shadow-md active:scale-95 transition">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
-          <span id="main-action-text">Subir Foto</span>
+        <button id="admin-clear-btn" onclick="clearCurrentTabExamples()" class="bg-rose-100 hover:bg-rose-200 text-rose-700 text-xs font-bold px-3 py-2 rounded-xl flex items-center space-x-1 border border-rose-200 transition" title="Limpiar datos de ejemplo">
+          <span>🗑️</span>
+          <span class="hidden sm:inline">Borrar Ejemplos</span>
         </button>
 
-        <button onclick="openCustomizerModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl flex items-center space-x-1 border border-slate-300 transition" title="Personalizar diseño">
-          <span>🎨</span>
-          <span class="hidden sm:inline">Diseño</span>
+        <button id="main-action-btn" onclick="openActiveActionModal()" class="bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold px-3.5 py-2 md:px-4 md:py-2.5 rounded-xl flex items-center space-x-1.5 shadow-md active:scale-95 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
+          <span id="main-action-text">Subir Foto</span>
         </button>
       </div>
     </div>
@@ -253,45 +235,22 @@
       <section id="tab-agenda" class="hidden space-y-6">
         
         <!-- Live Call Alert & Candela highlight card -->
-        <div class="bg-gradient-to-r from-indigo-500/10 via-indigo-100/60 to-indigo-50 border-2 border-indigo-200 rounded-3xl p-5 md:p-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div class="bg-gradient-to-r from-sky-500/10 via-sky-100/60 to-blue-50 border-2 border-sky-200 rounded-3xl p-5 md:p-6 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div class="space-y-1.5">
-            <div class="inline-flex items-center gap-2 bg-indigo-600 text-white text-[11px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-              <span>📞</span> Horarios de Atención Familiar
+            <div class="inline-flex items-center gap-2 bg-sky-600 text-white text-[11px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              <span>🇦🇷</span> Horarios y Fechas de Argentina
             </div>
             <h3 class="text-base md:text-lg font-black text-slate-900 flex items-center gap-2">
-              ¿A quién puedo llamar ahora mismo?
+              Calendario Real: Septiembre 2026
             </h3>
             <p class="text-xs md:text-sm text-slate-600 max-w-2xl leading-relaxed">
-              Consulta en el calendario cuándo está trabajando cada familiar. Por ejemplo: <strong>Candela está ocupada de lunes a viernes en el trabajo hasta las 17:00 hs</strong>. ¡A partir de las 17:01 hs puedes llamarla tranquila!
+              Hoy es <strong>Martes 29 de Septiembre de 2026</strong>. Revisa los días de trabajo y la disponibilidad de la familia para planificar llamadas o juntadas.
             </p>
           </div>
-          <button onclick="openNewAgendaModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-2xl shrink-0 shadow-md active:scale-95 transition flex items-center gap-2">
+          <button onclick="openNewAgendaModal()" class="bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold px-4 py-2.5 rounded-2xl shrink-0 shadow-md active:scale-95 transition flex items-center gap-2">
             <span>+</span>
-            <span>Cargar Mi Ocupación</span>
+            <span>Cargar Mi Horario</span>
           </button>
-        </div>
-
-        <!-- Calendar View Modes Bar (Semanal / Mensual / Lista) -->
-        <div class="flex flex-wrap items-center justify-between gap-3 bg-white p-2.5 rounded-2xl border border-slate-200 shadow-sm">
-          <div class="flex items-center gap-1.5">
-            <button onclick="setAgendaViewMode('calendar-week')" id="btn-view-week" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow transition flex items-center gap-1.5">
-              <span>🗓️</span> Vista Calendario Semanal
-            </button>
-            <button onclick="setAgendaViewMode('calendar-month')" id="btn-view-month" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-1.5">
-              <span>📅</span> Vista Mes
-            </button>
-            <button onclick="setAgendaViewMode('list')" id="btn-view-list" class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-1.5">
-              <span>📋</span> Lista Fichas
-            </button>
-          </div>
-
-          <!-- Member filter -->
-          <div class="flex items-center space-x-2 text-xs">
-            <span class="text-slate-400 font-medium">Filtrar por:</span>
-            <select id="agenda-member-filter" onchange="renderAgenda()" class="bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1 text-xs outline-none font-semibold text-slate-700 focus:ring-1 focus:ring-indigo-500">
-              <option value="ALL">Toda la familia</option>
-            </select>
-          </div>
         </div>
 
         <!-- Render Target for Calendar / Schedule -->
@@ -315,37 +274,20 @@
         </div>
       </section>
 
-      <!-- 5. TRIVIA & ANECDOTES TAB -->
-      <section id="tab-trivia" class="hidden space-y-6 max-w-xl mx-auto">
-        <div class="bg-indigo-600 text-white p-8 rounded-3xl shadow-xl text-center space-y-6 relative overflow-hidden">
-          <div class="text-4xl text-indigo-200">“</div>
-          <p id="trivia-quote" class="text-lg md:text-2xl font-serif italic text-white leading-relaxed">
-            "¡El secreto del asado es no apurar jamás los carbones!"
-          </p>
-          <p id="trivia-author" class="text-xs md:text-sm font-bold text-indigo-100 tracking-wide">— Papá (2023)</p>
-          <div class="pt-2">
-            <button onclick="spinRandomTrivia()" class="bg-slate-900 hover:bg-black text-white font-bold text-xs px-5 py-3 rounded-2xl shadow-lg transition active:scale-95 inline-flex items-center gap-2">
-              <span>🎲</span>
-              <span>Generar otra frase célebre</span>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- 6. ADMIN TAB -->
+      <!-- 5. ADMIN TAB -->
       <section id="tab-admin" class="hidden space-y-6">
         <div class="bg-slate-900 text-white p-5 md:p-6 rounded-3xl shadow flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h3 class="text-base font-black flex items-center gap-2 text-indigo-400">
+            <h3 class="text-base font-black flex items-center gap-2 text-sky-400">
               <span>👑</span>
               <span>Panel de Administradora</span>
             </h3>
             <p class="text-xs text-slate-300 mt-1 max-w-xl">
-              Crea las cuentas de tus familiares y copia sus usuarios y contraseñas con un clic para enviárselos por WhatsApp.
+              Crea las cuentas de los integrantes de la Familia Vazquez y comparte sus credenciales para que ingresen.
             </p>
           </div>
           <div class="flex gap-2">
-            <button onclick="openNewMemberModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow active:scale-95 transition flex items-center gap-1.5">
+            <button onclick="openNewMemberModal()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow active:scale-95 transition flex items-center gap-1.5">
               <span>👤</span>
               <span>Crear Familiar</span>
             </button>
@@ -362,7 +304,7 @@
 
   <!-- Mobile Bottom Dock -->
   <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 flex justify-around items-center py-2 px-1 z-30 shadow-2xl text-[10px]">
-    <button onclick="switchTab('feed')" id="mobile-dock-feed" class="flex flex-col items-center p-1 text-indigo-400 font-bold">
+    <button onclick="switchTab('feed')" id="mobile-dock-feed" class="flex flex-col items-center p-1 text-sky-400 font-bold">
       <span class="text-lg">📷</span>
       <span class="mt-0.5">Muro</span>
     </button>
@@ -378,86 +320,17 @@
       <span class="text-lg">🏆</span>
       <span class="mt-0.5">Logros</span>
     </button>
-    <button onclick="switchTab('trivia')" id="mobile-dock-trivia" class="flex flex-col items-center p-1 text-slate-400">
-      <span class="text-lg">✨</span>
-      <span class="mt-0.5">Frases</span>
-    </button>
     <button onclick="switchTab('admin')" id="mobile-dock-admin" class="flex flex-col items-center p-1 text-slate-400">
       <span class="text-lg">👑</span>
       <span class="mt-0.5">Admin</span>
     </button>
   </nav>
 
-  <!-- MODAL: Customizer (Colores, Letras y Título) -->
-  <div id="modal-customizer" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 class="font-black text-lg text-slate-900 flex items-center gap-2">
-          <span>🎨</span> Personalizar Diseño y Textos
-        </h3>
-        <button onclick="closeCustomizerModal()" class="text-slate-400 hover:text-slate-600 p-1 text-xl font-bold">&times;</button>
-      </div>
-
-      <form onsubmit="handleSaveCustomizer(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nombre de la Familia</label>
-          <input type="text" id="cust-family-name" required class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 font-semibold" placeholder="Ej: Familia González">
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Subtítulo o Lema</label>
-          <input type="text" id="cust-subtitle" required class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Ej: Nuestra Red Privada">
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mensaje de Anuncio (Barra superior)</label>
-          <input type="text" id="cust-announcement" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500" placeholder="Ej: ¡Bienvenidos! Recuerden ver los horarios...">
-        </div>
-
-        <!-- Theme Palette -->
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Color Principal (Tema)</label>
-          <div class="grid grid-cols-2 gap-2" id="theme-options-grid">
-            <!-- Populated by JS -->
-          </div>
-        </div>
-
-        <!-- Typography -->
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Estilo de Letra (Fuente)</label>
-          <div class="grid grid-cols-3 gap-2">
-            <button type="button" onclick="selectCustFont('sans')" id="font-opt-sans" class="p-2 border rounded-xl text-center text-xs font-sans">
-              <strong>Sans</strong><br><span class="text-[10px] text-slate-400">Moderna</span>
-            </button>
-            <button type="button" onclick="selectCustFont('serif')" id="font-opt-serif" class="p-2 border rounded-xl text-center text-xs font-serif">
-              <strong>Serif</strong><br><span class="text-[10px] text-slate-400">Elegante</span>
-            </button>
-            <button type="button" onclick="selectCustFont('mono')" id="font-opt-mono" class="p-2 border rounded-xl text-center text-xs font-mono">
-              <strong>Mono</strong><br><span class="text-[10px] text-slate-400">Técnica</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Logo Icon -->
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Ícono Principal</label>
-          <div class="flex flex-wrap gap-2" id="cust-logo-options">
-            <!-- Populated by JS -->
-          </div>
-        </div>
-
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl text-sm shadow-lg transition">
-          Guardar Cambios
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL: Publicar Foto en Muro -->
+  <!-- MODAL: Publicar Foto en Muro (Con Carga de Archivo Real) -->
   <div id="modal-post" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 class="font-bold text-base text-slate-900">📷 Publicar en el Muro</h3>
+        <h3 class="font-bold text-base text-slate-900">📷 Publicar Foto en el Muro</h3>
         <button onclick="closeModal('modal-post')" class="text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
       </div>
       <form onsubmit="handleCreatePost(event)" class="space-y-4">
@@ -471,19 +344,22 @@
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Descripción o Historia</label>
-          <textarea id="post-content" required rows="3" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="¿Qué quieres compartir con la familia?..."></textarea>
+          <textarea id="post-content" required rows="3" class="w-full border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 outline-none" placeholder="Escribe un mensaje para la Familia Vazquez..."></textarea>
         </div>
+        
+        <!-- Campo para seleccionar foto desde el teléfono o computadora -->
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">URL de la Foto (Opcional)</label>
-          <input type="url" id="post-image-url" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm outline-none" placeholder="https://images.unsplash.com/...">
-          <div class="flex items-center gap-2 mt-2">
-            <span class="text-[10px] text-slate-400">Fotos de ejemplo:</span>
-            <button type="button" onclick="setPostPresetImg('https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80')" class="w-7 h-7 rounded-lg overflow-hidden border border-slate-300"><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=100&q=80" class="w-full h-full object-cover"></button>
-            <button type="button" onclick="setPostPresetImg('https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80')" class="w-7 h-7 rounded-lg overflow-hidden border border-slate-300"><img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=100&q=80" class="w-full h-full object-cover"></button>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Seleccionar Foto desde tu Dispositivo</label>
+          <input type="file" id="post-file-input" accept="image/*" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-600 bg-slate-50 cursor-pointer focus:outline-none" onchange="previewSelectedImage(event)">
+          
+          <!-- Previsualización -->
+          <div id="image-preview-container" class="hidden mt-3 relative rounded-2xl overflow-hidden max-h-48 border border-slate-200 bg-slate-100">
+            <img id="image-preview" src="" class="w-full h-full object-cover">
           </div>
         </div>
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm shadow">
-          Publicar en el Muro
+
+        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-sm shadow">
+          Publicar Foto en el Muro
         </button>
       </form>
     </div>
@@ -502,7 +378,7 @@
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">¿Qué días se repite?</label>
           <select id="agenda-day-mode" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm font-semibold text-slate-800">
-            <option value="MON_TO_FRI">💼 De Lunes a Viernes (Semana laboral completa)</option>
+            <option value="MON_TO_FRI">💼 De Lunes a Viernes</option>
             <option value="Lunes">Solo Lunes</option>
             <option value="Martes">Solo Martes</option>
             <option value="Miércoles">Solo Miércoles</option>
@@ -510,13 +386,12 @@
             <option value="Viernes">Solo Viernes</option>
             <option value="Sábado">Solo Sábado</option>
             <option value="Domingo">Solo Domingo</option>
-            <option value="WEEKEND">🏖️ Fin de semana (Sábado y Domingo)</option>
           </select>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-600 mb-1">Desde</label>
-            <input type="time" id="agenda-start" required value="08:30" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm font-mono">
+            <input type="time" id="agenda-start" required value="08:00" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm font-mono">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-600 mb-1">Hasta</label>
@@ -524,14 +399,14 @@
           </div>
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Actividad / Ocupación</label>
-          <input type="text" id="agenda-title" required value="Trabajo en Oficina" placeholder="Ej: Trabajo en Oficina, Médico, Gimnasio" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Actividad / Trabajo</label>
+          <input type="text" id="agenda-title" required value="Trabajo" placeholder="Ej: Trabajo en Oficina, Turno Médico" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Mensaje para la familia (Opcional)</label>
-          <input type="text" id="agenda-note" placeholder="Ej: Disponible después de las 17 hs" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Mensaje para la familia</label>
+          <input type="text" id="agenda-note" placeholder="Ej: Llamar después de las 17 hs" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
         </div>
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm shadow">
+        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-sm shadow">
           Guardar en el Calendario
         </button>
       </form>
@@ -548,17 +423,17 @@
       <form onsubmit="handleCreateEvent(event)" class="space-y-3">
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Título de la reunión</label>
-          <input type="text" id="event-title" required placeholder="Ej: Asado en lo de Papá" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
+          <input type="text" id="event-title" required placeholder="Ej: Asado en lo de la Familia Vazquez" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Fecha</label>
-          <input type="date" id="event-date" required class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
+          <input type="date" id="event-date" required value="2026-10-04" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
         </div>
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1">Detalles / Qué llevar</label>
-          <textarea id="event-desc" rows="2" placeholder="Traer ensaladas y bebidas..." class="w-full border border-slate-300 rounded-xl p-3 text-sm"></textarea>
+          <textarea id="event-desc" rows="2" placeholder="Traer ensaladas y postre..." class="w-full border border-slate-300 rounded-xl p-3 text-sm"></textarea>
         </div>
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm shadow">
+        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-sm shadow">
           Publicar Reunión
         </button>
       </form>
@@ -574,42 +449,39 @@
       </div>
       <form onsubmit="handleCreateMember(event)" class="space-y-3">
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Nombre</label>
-          <input type="text" id="member-name" required placeholder="Ej: Candela, Tío Alberto" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm" oninput="autoGenerateCredentials()">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Nombre del Familiar</label>
+          <input type="text" id="member-name" required placeholder="Ej: Carlos Vazquez" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm" oninput="autoGenerateCredentials()">
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-semibold text-slate-600 mb-1">Parentesco / Rol</label>
-            <input type="text" id="member-role" required placeholder="Ej: Hija, Hermano" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
+            <input type="text" id="member-role" required placeholder="Ej: Hijo, Tío" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
           </div>
           <div>
             <label class="block text-xs font-semibold text-slate-600 mb-1">Avatar</label>
             <select id="member-avatar" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm">
-              <option value="👩‍💼">👩‍💼 Profesional / Candela</option>
               <option value="👩">👩 Mamá / Hija</option>
               <option value="👨">👨 Papá / Hijo</option>
               <option value="👵">👵 Abuela</option>
               <option value="👴">👴 Abuelo</option>
               <option value="👧">👧 Niña</option>
               <option value="👦">👦 Niño</option>
-              <option value="👶">👶 Bebé</option>
-              <option value="👑">👑 Reina / Admin</option>
-              <option value="🐶">🐶 Mascota</option>
+              <option value="👑">👑 Admin</option>
             </select>
           </div>
         </div>
-        <div class="bg-indigo-50 border border-indigo-200 p-3 rounded-2xl space-y-2">
-          <p class="text-xs font-bold text-slate-800">Credenciales que le enviarás:</p>
+        <div class="bg-sky-50 border border-sky-200 p-3 rounded-2xl space-y-2">
+          <p class="text-xs font-bold text-slate-800">Credenciales de acceso:</p>
           <div>
-            <label class="block text-[10px] text-slate-500 font-bold">Usuario / Correo</label>
+            <label class="block text-[10px] text-slate-500 font-bold">Usuario</label>
             <input type="text" id="member-email" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs">
           </div>
           <div>
             <label class="block text-[10px] text-slate-500 font-bold">Contraseña sugerida</label>
-            <input type="text" id="member-password" value="familia123" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs font-mono">
+            <input type="text" id="member-password" value="vazquez123" required class="w-full bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs font-mono">
           </div>
         </div>
-        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm shadow">
+        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-sm shadow">
           Crear Usuario Familiar
         </button>
       </form>
@@ -618,99 +490,53 @@
 
   <!-- JavaScript Application Logic -->
   <script>
-    const COLOR_THEMES = {
-      indigo: { id: 'indigo', name: 'Índigo Moderno', bg: 'bg-indigo-600', hover: 'hover:bg-indigo-700', text: 'text-indigo-600', lightBg: 'bg-indigo-50', border: 'border-indigo-200' },
-      rose: { id: 'rose', name: 'Rosa Coral', bg: 'bg-rose-500', hover: 'hover:bg-rose-600', text: 'text-rose-600', lightBg: 'bg-rose-50', border: 'border-rose-200' },
-      emerald: { id: 'emerald', name: 'Verde Bosque', bg: 'bg-emerald-600', hover: 'hover:bg-emerald-700', text: 'text-emerald-600', lightBg: 'bg-emerald-50', border: 'border-emerald-200' },
-      amber: { id: 'amber', name: 'Naranja Cálido', bg: 'bg-amber-600', hover: 'hover:bg-amber-700', text: 'text-amber-600', lightBg: 'bg-amber-50', border: 'border-amber-200' },
-      sky: { id: 'sky', name: 'Azul Cielo', bg: 'bg-sky-600', hover: 'hover:bg-sky-700', text: 'text-sky-600', lightBg: 'bg-sky-50', border: 'border-sky-200' },
-      purple: { id: 'purple', name: 'Violeta Noble', bg: 'bg-purple-600', hover: 'hover:bg-purple-700', text: 'text-purple-600', lightBg: 'bg-purple-50', border: 'border-purple-200' }
-    };
-
-    const LOGO_OPTIONS = ['🏡', '❤️', '👑', '🏰', '🌿', '⭐', '☀️', '🌻', '🐾', '🔥'];
     const DAYS_OF_WEEK = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
-    // App State
-    let siteConfig = {
-      familyName: 'Familia González',
-      subtitle: 'Nuestra Red Privada Familiar',
-      announcement: '¡Bienvenidos! Consulta el Calendario para saber cuándo llamar a la familia.',
-      themeId: 'indigo',
-      fontStyle: 'sans',
-      logoIcon: '🏡'
-    };
-
-    // Preloaded Members con Administradora / Admin123
+    // Cuentas precargadas
     let members = [
       { id: '1', name: 'Administradora', role: 'Administradora', email: 'Administradora', password: 'Admin123', avatar: '👑', isAdmin: true },
-      { id: '2', name: 'Candela', role: 'Hija / Creativa', email: 'candela@familia.com', password: 'familia123', avatar: '👩‍💼', isAdmin: false },
-      { id: '3', name: 'Papá', role: 'El Asador Oficial', email: 'papa@familia.com', password: 'familia123', avatar: '👨', isAdmin: false },
-      { id: '4', name: 'Mateo', role: 'El Pequeño', email: 'mateo@familia.com', password: 'familia123', avatar: '👦', isAdmin: false },
-      { id: '5', name: 'Abuela Rosa', role: 'Reina de las recetas', email: 'rosa@familia.com', password: 'familia123', avatar: '👵', isAdmin: false }
+      { id: '2', name: 'Familiar Vazquez', role: 'Integrante', email: 'familiar@vazquez.com', password: 'vazquez123', avatar: '👨', isAdmin: false }
     ];
 
-    let currentUser = null; // No hay usuario hasta que se loguee
+    let currentUser = null;
     let currentTab = 'feed';
-    let agendaViewMode = 'calendar-week';
-    let selectedAgendaDay = 'Lunes';
+    let uploadedImageBase64 = null;
 
-    let agenda = [
-      { id: 'c-lun', day: 'Lunes', startTime: '08:30', endTime: '17:00', title: 'Trabajo en Oficina', note: 'Disponible después de las 17:00 hs', authorName: 'Candela', authorAvatar: '👩‍💼', isRecurring: true },
-      { id: 'c-mar', day: 'Martes', startTime: '08:30', endTime: '17:00', title: 'Trabajo en Oficina', note: 'Disponible después de las 17:00 hs', authorName: 'Candela', authorAvatar: '👩‍💼', isRecurring: true },
-      { id: 'c-mie', day: 'Miércoles', startTime: '08:30', endTime: '17:00', title: 'Trabajo en Oficina', note: 'Disponible después de las 17:00 hs', authorName: 'Candela', authorAvatar: '👩‍💼', isRecurring: true },
-      { id: 'c-jue', day: 'Jueves', startTime: '08:30', endTime: '17:00', title: 'Trabajo en Oficina', note: 'Disponible después de las 17:00 hs', authorName: 'Candela', authorAvatar: '👩‍💼', isRecurring: true },
-      { id: 'c-vie', day: 'Viernes', startTime: '08:30', endTime: '17:00', title: 'Trabajo en Oficina', note: 'Disponible después de las 17:00 hs', authorName: 'Candela', authorAvatar: '👩‍💼', isRecurring: true },
-      { id: 'p-lun', day: 'Lunes', startTime: '09:00', endTime: '18:00', title: 'Taller Mecánico', note: 'Solo mensajes de WhatsApp', authorName: 'Papá', authorAvatar: '👨', isRecurring: true },
-      { id: 'r-mie', day: 'Miércoles', startTime: '10:00', endTime: '12:00', title: 'Médico Control', note: 'Consultorio centro', authorName: 'Abuela Rosa', authorAvatar: '👵', isRecurring: false },
-      { id: 'm-vie', day: 'Viernes', startTime: '19:00', endTime: '22:00', title: 'Fútbol con amigos', note: 'Partido semanal', authorName: 'Mateo', authorAvatar: '👦', isRecurring: true }
-    ];
-
+    // Datos iniciales de ejemplo
     let posts = [
       {
         id: 'p1',
-        authorName: 'Candela',
-        authorAvatar: '👩‍💼',
-        content: '¡Buenas a todos! Les dejé mis horarios cargados en el calendario de la semana. De lunes a viernes estoy hasta las 17hs en el trabajo, así que después de esa hora podemos hablar tranqui ☕📱',
+        authorName: 'Administradora',
+        authorAvatar: '👑',
+        content: '¡Bienvenidos a la app de la Familia Vazquez! Pueden publicar fotos familiares y revisar las actividades en el calendario.',
         category: 'Noticia',
-        imageUrl: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80',
-        dateStr: 'Hoy',
-        reactions: { '❤️': 5, '😂': 0, '👏': 6, '🎉': 4 }
-      },
-      {
-        id: 'p2',
-        authorName: 'Papá',
-        authorAvatar: '👨',
-        content: '¡Gran domingo en familia! Estrenando la parrilla nueva con los mejores asados 🥩🔥',
-        category: 'Foto',
-        imageUrl: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80',
-        dateStr: 'Ayer',
-        reactions: { '❤️': 6, '😂': 1, '👏': 4, '🎉': 2 }
+        imageUrl: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=800&q=80',
+        dateStr: '29 Sep 2026',
+        reactions: { '❤️': 2, '👏': 2 }
       }
+    ];
+
+    // Calendario Septiembre 2026 (Argentina)
+    let agenda = [
+      { id: 'a1', day: 'Lunes', startTime: '08:00', endTime: '17:00', title: 'Trabajo / Escuela', note: 'Disponible por la tarde', authorName: 'Administradora', authorAvatar: '👑' },
+      { id: 'a2', day: 'Martes', startTime: '08:00', endTime: '17:00', title: 'Trabajo / Escuela', note: 'Hoy es 29 de Septiembre', authorName: 'Administradora', authorAvatar: '👑' }
     ];
 
     let events = [
       {
         id: 'e1',
-        title: 'Asado de Fin de Semana en Familia',
-        date: 'Próximo Domingo 13:00 HS',
-        description: 'En el patio de casa. Papá hace el fuego, traigan ensaladas y bebidas frescas.',
-        organizer: 'Papá',
-        rsvps: { 'Administradora': 'SI', 'Candela': 'SI', 'Papá': 'SI', 'Mateo': 'TAL_VEZ' }
+        title: 'Asado Familiar Vazquez',
+        date: 'Domingo 4 de Octubre de 2026',
+        description: 'Almuerzo familiar en lo de la abuela. Confirmar asistencia.',
+        organizer: 'Administradora',
+        rsvps: { 'Administradora': 'SI' }
       }
     ];
 
     let achievements = [
-      { id: 'ac1', title: '¡Candela completó su Diplomatura!', person: 'Candela', description: 'Felicitaciones por terminar las clases y el proyecto final 🎓', badge: '🎓' },
-      { id: 'ac2', title: 'Campeón del Torneo de Fútbol', person: 'Mateo', description: 'Gol en la final minuto 90.', badge: '🏆' }
+      { id: 'ac1', title: '¡Inauguramos nuestra app familiar!', person: 'Familia Vazquez', description: 'Un espacio privado para estar siempre conectados.', badge: '🚀' }
     ];
 
-    let anecdotes = [
-      { quote: "¡El secreto del asado es no apurar jamás los carbones!", author: "Papá", year: "2023" },
-      { quote: "El que se levanta último los domingos junta la mesa y lava los platos.", author: "Administradora", year: "2022" },
-      { quote: "Candela avisando que sale a las 17hs puntual pero siempre se queda 10 minutos más charlando.", author: "Familia", year: "2024" }
-    ];
-
-    // MANEJO DE LOGIN
     function handleLogin(e) {
       e.preventDefault();
       const userVal = document.getElementById('login-username').value.trim();
@@ -726,7 +552,7 @@
         document.getElementById('login-username').value = '';
         document.getElementById('login-password').value = '';
         updateUserUI();
-        showToast(`¡Bienvenida/o, ${currentUser.name}!`);
+        showToast(`¡Bienvenida, ${currentUser.name}!`);
       } else {
         errEl.classList.remove('hidden');
       }
@@ -748,7 +574,7 @@
       document.getElementById('admin-sidebar-menu').style.display = currentUser.isAdmin ? 'block' : 'none';
       document.getElementById('mobile-dock-admin').style.display = currentUser.isAdmin ? 'flex' : 'none';
 
-      switchTab(currentTab === 'admin' && !currentUser.isAdmin ? 'feed' : currentTab);
+      switchTab('feed');
     }
 
     function showToast(text) {
@@ -763,39 +589,20 @@
       }, 3000);
     }
 
-    function applySiteVisuals() {
-      document.getElementById('mobile-brand-title').innerText = siteConfig.familyName;
-      document.getElementById('desktop-brand-title').innerText = siteConfig.familyName;
-      document.getElementById('desktop-brand-subtitle').innerText = siteConfig.subtitle;
-      document.getElementById('mobile-brand-icon').innerText = siteConfig.logoIcon;
-      document.getElementById('desktop-brand-icon').innerText = siteConfig.logoIcon;
-      document.getElementById('announcement-text').innerText = siteConfig.announcement;
-
-      document.body.classList.remove('font-sans', 'font-serif', 'font-mono');
-      document.body.classList.add('font-' + siteConfig.fontStyle);
-
-      const activeTheme = COLOR_THEMES[siteConfig.themeId] || COLOR_THEMES.indigo;
-      document.getElementById('desktop-brand-icon').className = `w-10 h-10 rounded-2xl ${activeTheme.bg} flex items-center justify-center text-xl shadow-lg shrink-0`;
-      
-      const mainBtn = document.getElementById('main-action-btn');
-      mainBtn.className = `${activeTheme.bg} ${activeTheme.hover} text-white text-xs font-bold px-3.5 py-2 md:px-4 md:py-2.5 rounded-xl flex items-center space-x-1.5 shadow-md active:scale-95 transition`;
-    }
-
     function switchTab(tabId) {
       currentTab = tabId;
-      const tabs = ['feed', 'agenda', 'events', 'achievements', 'trivia', 'admin'];
+      const tabs = ['feed', 'agenda', 'events', 'achievements', 'admin'];
       tabs.forEach(t => {
         const el = document.getElementById(`tab-${t}`);
         if (el) el.classList.toggle('hidden', t !== tabId);
       });
 
       const titles = {
-        feed: { title: '📷 Muro Familiar', subtitle: 'Fotos y recuerdos de todos', actionText: 'Subir Foto' },
-        agenda: { title: '📅 Calendario & Agenda', subtitle: 'Consulta cuándo están ocupados antes de llamar', actionText: 'Cargar Mi Ocupación' },
-        events: { title: '🥩 Reuniones & Asados', subtitle: 'Eventos próximos y confirmaciones', actionText: 'Proponer Asado' },
-        achievements: { title: '🏆 Logros de la Familia', subtitle: 'Celebrando nuestras metas', actionText: 'Nuevo Logro' },
-        trivia: { title: '✨ Anécdotas & Frases', subtitle: 'Recuerdos y dichos célebres', actionText: 'Nueva Frase' },
-        admin: { title: '👑 Gestión de Familiares', subtitle: 'Control de accesos y contraseñas', actionText: 'Crear Familiar' }
+        feed: { title: '📷 Muro Familia Vazquez', subtitle: 'Fotos y recuerdos compartidos', actionText: 'Subir Foto' },
+        agenda: { title: '📅 Calendario Argentina (Sept 2026)', subtitle: 'Fechas y horarios reales', actionText: 'Cargar Ocupación' },
+        events: { title: '🥩 Reuniones & Asados', subtitle: 'Reuniones de la familia', actionText: 'Proponer Asado' },
+        achievements: { title: '🏆 Logros de la Familia', subtitle: 'Nuestros momentos especiales', actionText: 'Nuevo Logro' },
+        admin: { title: '👑 Panel Administradora', subtitle: 'Cuentas de la familia', actionText: 'Crear Familiar' }
       };
 
       const meta = titles[tabId] || titles.feed;
@@ -803,22 +610,13 @@
       document.getElementById('section-subtitle').innerHTML = `Sesión actual: <strong class="text-slate-700">${currentUser ? currentUser.name : ''}</strong>`;
       document.getElementById('main-action-text').innerText = meta.actionText;
 
-      const activeTheme = COLOR_THEMES[siteConfig.themeId] || COLOR_THEMES.indigo;
-
       document.querySelectorAll('.nav-item').forEach(btn => {
         btn.className = 'nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition';
       });
       const activeNav = document.getElementById(`nav-btn-${tabId}`);
       if (activeNav) {
-        activeNav.className = `nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold ${activeTheme.bg} text-white shadow transition`;
+        activeNav.className = 'nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-sky-600 text-white shadow transition';
       }
-
-      tabs.forEach(t => {
-        const mBtn = document.getElementById(`mobile-dock-${t}`);
-        if (mBtn) {
-          mBtn.className = (t === tabId) ? `flex flex-col items-center p-1 ${activeTheme.text} font-bold` : 'flex flex-col items-center p-1 text-slate-400';
-        }
-      });
 
       if (tabId === 'feed') renderFeed();
       if (tabId === 'agenda') renderAgenda();
@@ -827,29 +625,41 @@
       if (tabId === 'admin') renderMembers();
     }
 
+    // Previsualizar la foto cargada desde el celular
+    function previewSelectedImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImageBase64 = e.target.result;
+          document.getElementById('image-preview').src = uploadedImageBase64;
+          document.getElementById('image-preview-container').classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
     function renderFeed() {
       const container = document.getElementById('feed-container');
       if (posts.length === 0) {
-        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-slate-200 shadow-sm"><p class="text-4xl mb-2">📷</p><p class="text-sm font-bold text-slate-700">No hay publicaciones aún</p></div>`;
+        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-sky-100 shadow-sm"><p class="text-4xl mb-2">📷</p><p class="text-sm font-bold text-slate-700">El muro está vacío. ¡Haz clic en "Subir Foto" para publicar!</p></div>`;
         return;
       }
-
-      const activeTheme = COLOR_THEMES[siteConfig.themeId] || COLOR_THEMES.indigo;
 
       container.innerHTML = posts.map(p => {
         const canDelete = currentUser && (p.authorName === currentUser.name || currentUser.isAdmin);
         return `
-          <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden animate-card">
+          <div class="bg-white rounded-3xl border border-sky-100 shadow-sm overflow-hidden animate-card">
             <div class="p-4 flex items-center justify-between border-b border-slate-100">
               <div class="flex items-center space-x-3">
-                <span class="text-2xl bg-slate-100 p-2 rounded-2xl">${p.authorAvatar}</span>
+                <span class="text-2xl bg-sky-50 p-2 rounded-2xl">${p.authorAvatar}</span>
                 <div>
                   <h4 class="font-bold text-slate-900 text-sm">${p.authorName}</h4>
                   <p class="text-[11px] text-slate-400">${p.dateStr}</p>
                 </div>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full ${activeTheme.lightBg} ${activeTheme.text} border ${activeTheme.border}">${p.category || 'Foto'}</span>
+                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">${p.category || 'Foto'}</span>
                 ${canDelete ? `<button onclick="deletePost('${p.id}')" class="text-slate-400 hover:text-rose-500 p-1 font-bold text-xs" title="Borrar">✕</button>` : ''}
               </div>
             </div>
@@ -859,7 +669,7 @@
             </div>
             <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center space-x-2">
               ${['❤️', '😂', '👏', '🎉'].map(emoji => `
-                <button onclick="reactPost('${p.id}', '${emoji}')" class="bg-white border border-slate-200 hover:border-indigo-400 px-3 py-1 rounded-full text-xs transition shadow-sm flex items-center space-x-1.5 active:scale-95">
+                <button onclick="reactPost('${p.id}', '${emoji}')" class="bg-white border border-slate-200 hover:border-sky-400 px-3 py-1 rounded-full text-xs transition shadow-sm flex items-center space-x-1.5 active:scale-95">
                   <span>${emoji}</span>
                   <span class="font-bold text-slate-600">${p.reactions[emoji] || 0}</span>
                 </button>
@@ -885,218 +695,81 @@
       showToast('Publicación eliminada');
     }
 
-    function setAgendaViewMode(mode) {
-      agendaViewMode = mode;
-      const activeTheme = COLOR_THEMES[siteConfig.themeId] || COLOR_THEMES.indigo;
-      ['week', 'month', 'list'].forEach(m => {
-        const btn = document.getElementById(`btn-view-${m}`);
-        if (btn) {
-          if (`calendar-${m}` === mode || (m === 'list' && mode === 'list')) {
-            btn.className = `px-3.5 py-1.5 rounded-xl text-xs font-bold ${activeTheme.bg} text-white shadow transition flex items-center gap-1.5`;
-          } else {
-            btn.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition flex items-center gap-1.5';
-          }
-        }
-      });
-      renderAgenda();
-    }
+    // Borrar ejemplos por parte del Admin
+    function clearCurrentTabExamples() {
+      if (!currentUser || !currentUser.isAdmin) {
+        alert("Solo la Administradora puede borrar los datos de ejemplo.");
+        return;
+      }
 
-    function renderAgenda() {
-      const filterSelect = document.getElementById('agenda-member-filter');
-      const curFilter = filterSelect.value || 'ALL';
-      filterSelect.innerHTML = `<option value="ALL">Toda la familia</option>` + members.map(m => `
-        <option value="${m.name}" ${curFilter === m.name ? 'selected' : ''}>${m.avatar} ${m.name}</option>
-      `).join('');
-
-      const target = document.getElementById('agenda-calendar-container');
-
-      const getItemsForDay = (dayName) => {
-        return agenda.filter(item => {
-          const matchDay = item.day === dayName;
-          const matchMember = curFilter === 'ALL' || item.authorName === curFilter;
-          return matchDay && matchMember;
-        });
-      };
-
-      if (agendaViewMode === 'calendar-week') {
-        target.innerHTML = `
-          <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-4 md:p-6 space-y-4 animate-card overflow-x-auto">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div>
-                <h4 class="font-black text-sm md:text-base text-slate-900 flex items-center gap-2">
-                  <span>🗓️</span> Calendario Semanal de Ocupación
-                </h4>
-                <p class="text-xs text-slate-400">Pasa el día o mira las tarjetas para saber quién está ocupado y hasta qué hora</p>
-              </div>
-              <span class="text-[11px] font-bold bg-slate-100 text-slate-600 px-3 py-1 rounded-full">Semana Completa</span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 gap-3 min-w-[700px] md:min-w-0">
-              ${DAYS_OF_WEEK.map(day => {
-                const dayItems = getItemsForDay(day);
-                const isWorkDay = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'].includes(day);
-                return `
-                  <div class="border ${isWorkDay ? 'border-indigo-200/90 bg-indigo-50/30' : 'border-slate-200 bg-slate-50/50'} rounded-2xl p-2.5 flex flex-col justify-between min-h-[220px]">
-                    <div class="space-y-2">
-                      <div class="flex items-center justify-between border-b border-slate-200/60 pb-1.5">
-                        <span class="font-extrabold text-xs text-slate-800">${day}</span>${isWorkDay ? '<span class="text-[9px] font-bold text-indigo-700 bg-indigo-100 px-1.5 py-0.2 rounded">Laboral</span>' : '<span class="text-[9px] font-bold text-slate-400">Finde</span>'}
-                      </div>
-
-                      <div class="space-y-2">
-                        ${dayItems.length === 0 ? `
-                          <div class="py-6 text-center text-[11px] text-slate-400 italic">
-                            🟢 Libres todo el día
-                          </div>
-                        ` : dayItems.map(item => `
-                          <div class="bg-white p-2 rounded-xl border border-slate-200 shadow-sm space-y-1 text-left relative group">
-                            <div class="flex items-center justify-between">
-                              <span class="font-bold text-[11px] text-slate-900 truncate flex items-center gap-1">
-                                <span>${item.authorAvatar}</span>
-                                <span>${item.authorName}</span>
-                              </span>
-                              ${currentUser && (item.authorName === currentUser.name || currentUser.isAdmin) ? `
-                                <button onclick="deleteAgenda('${item.id}')" class="text-slate-300 hover:text-rose-500 font-bold text-[10px]" title="Borrar">✕</button>
-                              ` : ''}
-                            </div>
-                            <div class="text-[10px] font-bold text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200 flex items-center gap-1">
-                              <span>🕒</span>
-                              <span>Hasta las ${item.endTime} HS</span>
-                            </div>
-                            <p class="text-[10px] text-slate-600 font-semibold truncate leading-tight">${item.title}</p>
-                            ${item.note ? `<p class="text-[9px] text-slate-400 italic truncate">"${item.note}"</p>` : ''}
-                          </div>
-                        `).join('')}
-                      </div>
-                    </div>
-
-                    <div class="pt-2 text-center">
-                      <button onclick="quickAddForDay('${day}')" class="text-[10px] text-indigo-700 hover:text-indigo-900 font-bold hover:underline">
-                        + Sumar horario
-                      </button>
-                    </div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        `;
-      } 
-      else if (agendaViewMode === 'calendar-month') {
-        target.innerHTML = `
-          <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 md:p-6 space-y-4 animate-card">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div>
-                <h4 class="font-black text-sm md:text-base text-slate-900">📅 Calendario Mensual Familiar</h4>
-                <p class="text-xs text-slate-400">Patrón de ocupación recurrente de la semana</p>
-              </div>
-              <div class="text-xs font-bold bg-indigo-50 text-indigo-800 px-3 py-1 rounded-xl border border-indigo-200">
-                Lunes a Viernes: Candela en el trabajo hasta 17:00 hs
-              </div>
-            </div>
-
-            <div class="grid grid-cols-7 gap-2 text-center text-xs font-bold text-slate-400 py-1 border-b border-slate-100">
-              <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span class="text-slate-300">Sáb</span><span class="text-slate-300">Dom</span>
-            </div>
-            <div class="grid grid-cols-7 gap-2">
-              ${[...Array(28)].map((_, i) => {
-                const dayIdx = i % 7;
-                const dayName = DAYS_OF_WEEK[dayIdx];
-                const dayNum = i + 1;
-                const items = getItemsForDay(dayName);
-                return `
-                  <div class="p-2 min-h-[70px] rounded-xl border ${items.length > 0 ? 'bg-indigo-50/50 border-indigo-200' : 'bg-slate-50 border-slate-100'} text-left flex flex-col justify-between">
-                    <span class="font-bold text-xs text-slate-700">${dayNum}</span>
-                    <div class="flex flex-wrap gap-1 mt-1">
-                      ${items.map(it => `
-                        <span class="text-[10px] bg-white border border-slate-200 px-1 rounded shadow-xs" title="${it.authorName}: ${it.title} hasta las ${it.endTime}">
-                          ${it.authorAvatar}
-                        </span>
-                      `).join('')}
-                    </div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        `;
-      } 
-      else {
-        const activeTheme = COLOR_THEMES[siteConfig.themeId] || COLOR_THEMES.indigo;
-        target.innerHTML = `
-          <div class="space-y-4">
-            <div class="flex flex-wrap gap-2 pb-2 border-b border-slate-200">
-              ${DAYS_OF_WEEK.map(d => {
-                const count = getItemsForDay(d).length;
-                const isSel = selectedAgendaDay === d;
-                return `
-                  <button onclick="selectAgendaDay('${d}')" class="px-3.5 py-1.5 rounded-2xl text-xs font-bold transition flex items-center space-x-1.5 ${isSel ? `${activeTheme.bg} text-white shadow` : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'}">
-                    <span>${d}</span>${count > 0 ? `<span class="text-[10px] px-1.5 py-0.5 rounded-full ${isSel ? 'bg-black/25 text-white' : 'bg-slate-100 text-slate-600'}">${count}</span>` : ''}
-                  </button>
-                `;
-              }).join('')}
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              ${getItemsForDay(selectedAgendaDay).map(item => `
-                <div class="bg-white p-4 rounded-3xl border border-slate-200 shadow-sm space-y-3 flex flex-col justify-between animate-card">
-                  <div class="space-y-2">
-                    <div class="flex justify-between items-start">
-                      <div class="flex items-center space-x-2">
-                        <span class="text-2xl bg-slate-100 p-2 rounded-2xl">${item.authorAvatar}</span>
-                        <div>
-                          <h5 class="font-bold text-slate-900 text-xs">${item.authorName}</h5>
-                          <span class="text-[10px] bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded-full">Ocupada(o) hasta ${item.endTime} HS</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="p-3 rounded-2xl bg-indigo-50/70 border border-indigo-200 space-y-1">
-                      <p class="text-xs font-bold text-indigo-700">🕒 ${item.startTime} a${item.endTime} HS</p>
-                      <p class="text-xs font-semibold text-slate-800">${item.title}</p>${item.note ? `<p class="text-[11px] text-slate-500 italic">"${item.note}"</p>` : ''}
-                    </div>
-                  </div>
-                  ${currentUser && (item.authorName === currentUser.name || currentUser.isAdmin) ? `
-                    <div class="pt-2 border-t border-slate-100 flex justify-end">
-                      <button onclick="deleteAgenda('${item.id}')" class="text-slate-400 hover:text-rose-500 text-xs font-semibold">Eliminar</button>
-                    </div>
-                  ` : ''}
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
+      if (confirm("¿Quieres eliminar los datos de ejemplo de esta sección para colocar los tuyos?")) {
+        if (currentTab === 'feed') posts = [];
+        if (currentTab === 'agenda') agenda = [];
+        if (currentTab === 'events') events = [];
+        if (currentTab === 'achievements') achievements = [];
+        
+        switchTab(currentTab);
+        showToast('Ejemplos eliminados. Puedes subir tus datos.');
       }
     }
 
-    function selectAgendaDay(d) {
-      selectedAgendaDay = d;
-      renderAgenda();
-    }
+    function renderAgenda() {
+      const target = document.getElementById('agenda-calendar-container');
 
-    function quickAddForDay(day) {
-      document.getElementById('agenda-day-mode').value = day;
-      openModal('modal-agenda');
-    }
+      // Grilla de Septiembre 2026 (Argentina)
+      // Septiembre 2026 arranca en Martes 1 (30 días en total)
+      target.innerHTML = `
+        <div class="bg-white rounded-3xl border border-sky-100 shadow-sm p-4 md:p-6 space-y-4 animate-card">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <h4 class="font-black text-sm md:text-base text-slate-900 flex items-center gap-2">
+                <span>🗓️</span> Calendario de Septiembre 2026 (Argentina)
+              </h4>
+              <p class="text-xs text-slate-400">Distribución mensual real de fechas</p>
+            </div>
+            <span class="text-[11px] font-bold bg-sky-100 text-sky-800 px-3 py-1 rounded-full">Septiembre 2026</span>
+          </div>
 
-    function deleteAgenda(id) {
-      agenda = agenda.filter(x => x.id !== id);
-      renderAgenda();
-      showToast('Ocupación eliminada del calendario');
+          <div class="grid grid-cols-7 gap-2 text-center text-xs font-bold text-slate-500 py-1 border-b border-slate-100">
+            <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span class="text-sky-600">Sáb</span><span class="text-sky-600">Dom</span>
+          </div>
+
+          <!-- Grilla de 30 días con desplazamiento para Martes 1 -->
+          <div class="grid grid-cols-7 gap-2 text-center text-xs">
+            <!-- Vacío para el Lunes antes del 1 de Sept (que es Martes) -->
+            <div class="p-2 min-h-[50px] bg-slate-50/40 rounded-xl"></div>
+
+            ${[...Array(30)].map((_, i) => {
+              const dayNum = i + 1;
+              const isToday = dayNum === 29; // Hoy 29 de Septiembre 2026
+              return `
+                <div class="p-2 min-h-[55px] rounded-2xl border ${isToday ? 'bg-sky-600 text-white font-bold border-sky-600 shadow-md scale-105' : 'bg-slate-50 border-slate-100 text-slate-700'} flex flex-col justify-between items-center">
+                  <span>${dayNum}</span>${isToday ? '<span class="text-[9px] bg-white text-sky-800 px-1 rounded font-black">HOY</span>' : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
     }
 
     function renderEvents() {
       const container = document.getElementById('events-container');
-      const activeTheme = COLOR_THEMES[siteConfig.themeId] || COLOR_THEMES.indigo;
+      if (events.length === 0) {
+        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-sky-100 shadow-sm col-span-2"><p class="text-4xl mb-2">🥩</p><p class="text-sm font-bold text-slate-700">No hay asados organizados. ¡Crea el primero!</p></div>`;
+        return;
+      }
 
       container.innerHTML = events.map(e => {
         const myStatus = currentUser ? e.rsvps?.[currentUser.name] : null;
         return `
-          <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 space-y-4 flex flex-col justify-between animate-card">
+          <div class="bg-white rounded-3xl border border-sky-100 shadow-sm p-5 space-y-4 flex flex-col justify-between animate-card">
             <div class="space-y-2">
               <div class="flex justify-between items-start">
                 <div>
-                  <span class="text-xs font-bold ${activeTheme.text} ${activeTheme.lightBg} px-2.5 py-1 rounded-full">${e.date}</span>
+                  <span class="text-xs font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full">${e.date}</span>
                   <h3 class="font-bold text-slate-900 text-base mt-2">${e.title}</h3>
-                  <p class="text-xs text-slate-400">Propuesto por: ${e.organizer}</p>
+                  <p class="text-xs text-slate-400">Organiza: ${e.organizer}</p>
                 </div>
               </div>
               <p class="text-xs md:text-sm text-slate-600 leading-relaxed">${e.description}</p>
@@ -1105,7 +778,7 @@
             <div class="border-t border-slate-100 pt-3 space-y-2">
               <p class="text-xs font-semibold text-slate-600">¿Asistirás (${currentUser ? currentUser.name : ''})?</p>
               <div class="grid grid-cols-3 gap-2">
-                <button onclick="rsvpEvent('${e.id}', 'SI')" class="py-2 rounded-xl text-xs font-bold border transition ${myStatus === 'SI' ? 'bg-emerald-600 text-white border-emerald-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
+                <button onclick="rsvpEvent('${e.id}', 'SI')" class="py-2 rounded-xl text-xs font-bold border transition ${myStatus === 'SI' ? 'bg-sky-600 text-white border-sky-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
                   ✓ Voy
                 </button>
                 <button onclick="rsvpEvent('${e.id}', 'TAL_VEZ')" class="py-2 rounded-xl text-xs font-bold border transition ${myStatus === 'TAL_VEZ' ? 'bg-amber-500 text-white border-amber-500 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
@@ -1114,17 +787,6 @@
                 <button onclick="rsvpEvent('${e.id}', 'NO')" class="py-2 rounded-xl text-xs font-bold border transition ${myStatus === 'NO' ? 'bg-rose-600 text-white border-rose-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
                   ✕ No voy
                 </button>
-              </div>
-
-              <div class="pt-2 flex flex-wrap gap-1">
-                ${Object.entries(e.rsvps || {}).map(([name, status]) => `
-                  <span class="text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                    status === 'SI' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' :
-                    status === 'NO' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-amber-50 text-amber-700 border border-amber-200'
-                  }">
-                    ${name}:${status === 'SI' ? 'Voy' : status === 'NO' ? 'No voy' : 'Tal vez'}
-                  </span>
-                `).join('')}
               </div>
             </div>
           </div>
@@ -1146,26 +808,22 @@
 
     function renderAchievements() {
       const container = document.getElementById('achievements-container');
-      const activeTheme = COLOR_THEMES[siteConfig.themeId] || COLOR_THEMES.indigo;
+      if (achievements.length === 0) {
+        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-sky-100 shadow-sm col-span-2"><p class="text-4xl mb-2">🏆</p><p class="text-sm font-bold text-slate-700">Sin logros registrados aún.</p></div>`;
+        return;
+      }
 
       container.innerHTML = achievements.map(a => `
-        <div class="p-5 rounded-3xl border ${activeTheme.border} ${activeTheme.lightBg} shadow-sm flex space-x-3.5 items-start animate-card">
+        <div class="p-5 rounded-3xl border border-sky-200 bg-sky-50/60 shadow-sm flex space-x-3.5 items-start animate-card">
           <div class="text-3xl p-3 bg-white rounded-2xl shrink-0 shadow-sm">${a.badge || '🏆'}</div>
           <div>
             <h4 class="font-bold text-slate-900 text-sm md:text-base">${a.title}</h4>
-            <p class="text-xs font-semibold ${activeTheme.text}">Familiar: ${a.person}</p>
+            <p class="text-xs font-semibold text-sky-700">Familiar: ${a.person}</p>
             <p class="text-slate-600 text-xs md:text-sm mt-1">${a.description}</p>
           </div>
         </div>
       `).join('');
       document.getElementById('badge-achievements').innerText = achievements.length;
-    }
-
-    function spinRandomTrivia() {
-      if (anecdotes.length === 0) return;
-      const rand = anecdotes[Math.floor(Math.random() * anecdotes.length)];
-      document.getElementById('trivia-quote').innerText = `"${rand.quote}"`;
-      document.getElementById('trivia-author').innerText = `— ${rand.author} (${rand.year})`;
     }
 
     function renderMembers() {
@@ -1174,11 +832,11 @@
         <div class="border border-slate-200 bg-white rounded-3xl p-4 shadow-sm space-y-3 flex flex-col justify-between animate-card">
           <div class="space-y-2">
             <div class="flex items-center space-x-3">
-              <span class="text-2xl bg-slate-100 p-2 rounded-2xl">${m.avatar}</span>
+              <span class="text-2xl bg-sky-50 p-2 rounded-2xl">${m.avatar}</span>
               <div>
                 <h4 class="font-bold text-xs md:text-sm text-slate-900 flex items-center gap-1">
                   <span>${m.name}</span>
-                  ${m.isAdmin ? '<span class="text-indigo-500">👑</span>' : ''}
+                  ${m.isAdmin ? '<span class="text-sky-600">👑</span>' : ''}
                 </h4>
                 <span class="text-[10px] bg-slate-100 text-slate-600 font-bold px-2 py-0.5 rounded-full">${m.role}</span>
               </div>
@@ -1189,7 +847,7 @@
             </div>
           </div>
           <div class="pt-2 border-t border-slate-100 flex items-center gap-2">
-            <button onclick="copyMemberCredentials('${m.id}')" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1 shadow-sm">
+            <button onclick="copyMemberCredentials('${m.id}')" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white font-bold py-1.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1 shadow-sm">
               <span>📋</span> Copiar para WhatsApp
             </button>
             ${!m.isAdmin ? `<button onclick="deleteMember('${m.id}')" class="text-slate-400 hover:text-rose-500 p-1.5" title="Eliminar">✕</button>` : ''}
@@ -1202,7 +860,7 @@
     function copyMemberCredentials(id) {
       const m = members.find(x => x.id === id);
       if (!m) return;
-      const text = `🏡 Red Social de la ${siteConfig.familyName}\n👤 Usuario: ${m.email}\n🔑 Contraseña: ${m.password}\n¡Hola ${m.name}! Ya puedes entrar con estos datos a ver fotos, el calendario y los asados.`;
+      const text = `🏡 Red Social de la Familia Vazquez\n👤 Usuario: ${m.email}\n🔑 Contraseña: ${m.password}\n¡Hola ${m.name}! Ya puedes ingresar con estas claves.`;
       
       const tempInput = document.createElement("textarea");
       tempInput.value = text;
@@ -1211,7 +869,7 @@
       document.execCommand("copy");
       document.body.removeChild(tempInput);
 
-      showToast(`¡Datos de ${m.name} copiados para enviar!`);
+      showToast(`¡Datos de ${m.name} copiados!`);
     }
 
     function deleteMember(id) {
@@ -1227,19 +885,12 @@
       else if (currentTab === 'agenda') openModal('modal-agenda');
       else if (currentTab === 'events') openModal('modal-event');
       else if (currentTab === 'achievements') {
-        const title = prompt("Hito o Logro familiar:");
+        const title = prompt("Título del logro:");
         if (title) {
           const person = prompt("¿Quién lo logró?", currentUser.name);
-          achievements.unshift({ id: Date.now().toString(), title, person, description: '¡Felicitaciones de parte de la familia!', badge: '🎓' });
+          achievements.unshift({ id: Date.now().toString(), title, person, description: '¡Felicitaciones de la Familia Vazquez!', badge: '🎓' });
           renderAchievements();
           showToast('Logro agregado');
-        }
-      } else if (currentTab === 'trivia') {
-        const quote = prompt("Frase célebre o anécdota:");
-        if (quote) {
-          anecdotes.unshift({ quote, author: currentUser.name, year: '2026' });
-          spinRandomTrivia();
-          showToast('Frase guardada');
         }
       } else if (currentTab === 'admin') {
         openNewMemberModal();
@@ -1247,7 +898,12 @@
     }
 
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-    function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+    function closeModal(id) { 
+      document.getElementById(id).classList.add('hidden');
+      uploadedImageBase64 = null;
+      const prev = document.getElementById('image-preview-container');
+      if (prev) prev.classList.add('hidden');
+    }
     function openNewAgendaModal() { openModal('modal-agenda'); }
     function openNewMemberModal() { openModal('modal-member'); }
 
@@ -1256,7 +912,6 @@
       if (!currentUser) return;
       const content = document.getElementById('post-content').value;
       const category = document.getElementById('post-category').value;
-      const imageUrl = document.getElementById('post-image-url').value;
 
       posts.unshift({
         id: Date.now().toString(),
@@ -1264,20 +919,16 @@
         authorAvatar: currentUser.avatar,
         content: content.trim(),
         category,
-        imageUrl: imageUrl.trim() || null,
-        dateStr: 'Recién publicado',
+        imageUrl: uploadedImageBase64 || null,
+        dateStr: '29 Sep 2026',
         reactions: { '❤️': 0, '😂': 0, '👏': 0, '🎉': 0 }
       });
 
       closeModal('modal-post');
       document.getElementById('post-content').value = '';
-      document.getElementById('post-image-url').value = '';
+      document.getElementById('post-file-input').value = '';
       renderFeed();
-      showToast('¡Publicado en el muro familiar!');
-    }
-
-    function setPostPresetImg(url) {
-      document.getElementById('post-image-url').value = url;
+      showToast('¡Foto publicada en el muro familiar!');
     }
 
     function handleCreateAgenda(e) {
@@ -1289,14 +940,7 @@
       const title = document.getElementById('agenda-title').value;
       const note = document.getElementById('agenda-note').value;
 
-      let targetDays = [];
-      if (mode === 'MON_TO_FRI') {
-        targetDays = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-      } else if (mode === 'WEEKEND') {
-        targetDays = ['Sábado', 'Domingo'];
-      } else {
-        targetDays = [mode];
-      }
+      let targetDays = mode === 'MON_TO_FRI' ? ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'] : [mode];
 
       targetDays.forEach((day, index) => {
         agenda.push({
@@ -1307,14 +951,13 @@
           title,
           note,
           authorName: currentUser.name,
-          authorAvatar: currentUser.avatar,
-          isRecurring: targetDays.length > 1
+          authorAvatar: currentUser.avatar
         });
       });
 
       closeModal('modal-agenda');
       renderAgenda();
-      showToast(`Ocupación guardada en el calendario (${targetDays.join(', ')})`);
+      showToast(`Ocupación agregada al calendario`);
     }
 
     function handleCreateEvent(e) {
@@ -1335,14 +978,14 @@
 
       closeModal('modal-event');
       renderEvents();
-      showToast('Reunión propuesta para la familia');
+      showToast('Reunión propuesta');
     }
 
     function autoGenerateCredentials() {
       const name = document.getElementById('member-name').value.trim();
       if (name) {
         const clean = name.toLowerCase().replace(/\s+/g, '');
-        document.getElementById('member-email').value = `${clean}@familia.com`;
+        document.getElementById('member-email').value = `${clean}@vazquez.com`;
       }
     }
 
@@ -1369,62 +1012,12 @@
       showToast(`¡Usuario creado para ${name}!`);
     }
 
-    function openCustomizerModal() {
-      document.getElementById('cust-family-name').value = siteConfig.familyName;
-      document.getElementById('cust-subtitle').value = siteConfig.subtitle;
-      document.getElementById('cust-announcement').value = siteConfig.announcement;
-      
-      const grid = document.getElementById('theme-options-grid');
-      grid.innerHTML = Object.values(COLOR_THEMES).map(t => `
-        <button type="button" onclick="selectCustTheme('${t.id}')" id="theme-btn-${t.id}" class="p-2.5 rounded-xl border flex items-center space-x-2 text-left transition ${siteConfig.themeId === t.id ? 'border-indigo-600 bg-indigo-50 ring-2 ring-indigo-500 font-bold' : 'border-slate-200'}">
-          <span class="w-4 h-4 rounded-full ${t.bg} shrink-0"></span>
-          <span class="text-xs text-slate-800">${t.name}</span>
-        </button>
-      `).join('');
-
-      ['sans', 'serif', 'mono'].forEach(f => {
-        const b = document.getElementById(`font-opt-${f}`);
-        if (siteConfig.fontStyle === f) {
-          b.className = 'p-2 border rounded-xl text-center text-xs ring-2 ring-indigo-500 bg-indigo-50 font-bold';
-        } else {
-          b.className = 'p-2 border rounded-xl text-center text-xs';
-        }
-      });
-
-      const iconsContainer = document.getElementById('cust-logo-options');
-      iconsContainer.innerHTML = LOGO_OPTIONS.map(icon => `
-        <button type="button" onclick="selectCustIcon('${icon}')" class="text-2xl p-2 rounded-xl border transition ${siteConfig.logoIcon === icon ? 'bg-slate-100 ring-2 ring-indigo-500 scale-105' : 'border-slate-200 hover:bg-slate-50'}">
-          ${icon}
-        </button>
-      `).join('');
-
-      openModal('modal-customizer');
-    }
-
-    function closeCustomizerModal() { closeModal('modal-customizer'); }
-    function selectCustTheme(id) { siteConfig.themeId = id; openCustomizerModal(); }
-    function selectCustFont(font) { siteConfig.fontStyle = font; openCustomizerModal(); }
-    function selectCustIcon(icon) { siteConfig.logoIcon = icon; openCustomizerModal(); }
-
-    function handleSaveCustomizer(e) {
-      e.preventDefault();
-      siteConfig.familyName = document.getElementById('cust-family-name').value;
-      siteConfig.subtitle = document.getElementById('cust-subtitle').value;
-      siteConfig.announcement = document.getElementById('cust-announcement').value;
-
-      applySiteVisuals();
-      closeCustomizerModal();
-      showToast('¡Diseño y textos actualizados!');
-    }
-
     window.onload = function() {
-      applySiteVisuals();
       renderFeed();
       renderAgenda();
       renderEvents();
       renderAchievements();
       renderMembers();
-      spinRandomTrivia();
     };
   </script>
 </body>
