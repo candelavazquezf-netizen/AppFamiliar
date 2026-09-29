@@ -6,17 +6,19 @@
   <title>Red Social Familiar - Familia Vazquez</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Inter, Playfair Display & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;1,600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif']
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
           }
         }
       }
@@ -35,16 +37,16 @@
     body { overscroll-behavior-y: contain; }
   </style>
 </head>
-<body class="bg-sky-50/50 text-slate-800 font-sans min-h-screen flex flex-col md:flex-row pb-20 md:pb-0 select-none">
+<body id="app-body" class="bg-sky-50/50 text-slate-800 font-sans min-h-screen flex flex-col md:flex-row pb-20 md:pb-0 select-none">
 
   <!-- MODAL OBLIGATORIO DE LOGIN -->
   <div id="login-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl max-w-md w-full p-8 space-y-6 shadow-2xl border border-sky-100 text-center animate-card">
       <div>
-        <div class="w-16 h-16 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner">
+        <div id="login-icon" class="w-16 h-16 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-3 shadow-inner">
           🏡
         </div>
-        <h2 class="text-2xl font-black text-slate-900">Familia Vazquez</h2>
+        <h2 id="login-family-title" class="text-2xl font-black text-slate-900">Familia Vazquez</h2>
         <p class="text-xs text-slate-500 mt-1">Ingresa tus credenciales para continuar</p>
       </div>
 
@@ -63,7 +65,7 @@
           <input type="password" id="login-password" required class="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-sky-500 outline-none" placeholder="••••••••">
         </div>
 
-        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-sky-200 transition active:scale-95">
+        <button type="submit" id="login-submit-btn" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-sky-200 transition active:scale-95">
           Ingresar a la App
         </button>
       </form>
@@ -79,13 +81,17 @@
   <!-- Mobile Top Bar -->
   <header class="md:hidden bg-slate-900 text-white p-4 flex items-center justify-between sticky top-0 z-30 shadow-md">
     <div class="flex items-center space-x-3">
-      <span class="text-2xl">🏡</span>
+      <span id="mobile-brand-icon" class="text-2xl">🏡</span>
       <div class="overflow-hidden">
-        <h1 class="font-bold text-sm text-white truncate max-w-[170px]">Familia Vazquez</h1>
+        <h1 id="mobile-brand-title" class="font-bold text-sm text-white truncate max-w-[170px]">Familia Vazquez</h1>
         <p id="mobile-user-status" class="text-[10px] text-sky-300 truncate">Administradora 👑</p>
       </div>
     </div>
     <div class="flex items-center gap-2">
+      <!-- Botón de diseño sólo visible para Admin -->
+      <button id="admin-custom-btn-mobile" onclick="openCustomizerModal()" class="p-2 rounded-xl bg-sky-600 text-white font-bold active:scale-95 transition hidden" title="Personalizar diseño (Admin)">
+        🎨
+      </button>
       <button onclick="logout()" class="p-2 rounded-xl bg-rose-600 text-white active:scale-95 transition" title="Cerrar sesión">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
       </button>
@@ -96,12 +102,12 @@
   <aside id="main-sidebar" class="hidden md:flex w-64 bg-slate-900 text-slate-100 flex-col justify-between shrink-0 shadow-2xl border-r border-slate-800 h-screen sticky top-0">
     <div class="flex flex-col h-full overflow-y-auto">
       <div class="p-5 border-b border-slate-800 flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-2xl bg-sky-600 flex items-center justify-center text-xl shadow-lg shrink-0">
+        <div id="desktop-brand-icon" class="w-10 h-10 rounded-2xl bg-sky-600 flex items-center justify-center text-xl shadow-lg shrink-0">
           🏡
         </div>
         <div class="overflow-hidden">
-          <h1 class="font-black text-base text-white truncate">Familia Vazquez</h1>
-          <p class="text-xs text-sky-400 truncate">Red Privada Familiar</p>
+          <h1 id="desktop-brand-title" class="font-black text-base text-white truncate">Familia Vazquez</h1>
+          <p id="desktop-brand-subtitle" class="text-xs text-sky-400 truncate">Red Privada Familiar</p>
         </div>
       </div>
 
@@ -160,6 +166,11 @@
             </div>
             <span id="badge-members" class="text-[10px] bg-black/40 px-2 py-0.5 rounded-full">2</span>
           </button>
+
+          <button onclick="openCustomizerModal()" class="w-full flex items-center space-x-2 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-sky-400 hover:bg-slate-800 transition">
+            <span>🎨</span>
+            <span>Editar Colores & Fuentes</span>
+          </button>
         </div>
       </nav>
     </div>
@@ -170,8 +181,9 @@
     <div id="announcement-banner" class="bg-sky-100/80 border-b border-sky-200 px-4 md:px-6 py-2.5 text-xs text-slate-800 flex items-center justify-between">
       <div class="flex items-center space-x-2 overflow-hidden">
         <span class="text-sky-700 shrink-0 font-bold">📢</span>
-        <span class="font-medium truncate">¡Bienvenidos a la app de la Familia Vazquez! Todo lo que agregues quedará guardado.</span>
+        <span id="announcement-text" class="font-medium truncate">¡Bienvenidos a la app de la Familia Vazquez! Todo lo que agregues quedará guardado.</span>
       </div>
+      <button id="admin-edit-banner-btn" onclick="openCustomizerModal()" class="text-[11px] underline text-slate-500 hover:text-slate-800 ml-2 shrink-0 font-semibold hidden">Editar</button>
     </div>
 
     <div class="bg-white border-b border-slate-200 px-4 md:px-6 py-3 flex justify-between items-center sticky top-0 z-20 shadow-sm">
@@ -185,6 +197,12 @@
       </div>
 
       <div class="flex items-center gap-2">
+        <!-- Botón visible sólo para la Administradora -->
+        <button id="admin-custom-btn-top" onclick="openCustomizerModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl items-center space-x-1 border border-slate-300 transition hidden" title="Personalizar colores y diseño">
+          <span>🎨</span>
+          <span class="hidden sm:inline">Diseño (Admin)</span>
+        </button>
+
         <button id="main-action-btn" onclick="openActiveActionModal()" class="bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold px-3.5 py-2 md:px-4 md:py-2.5 rounded-xl flex items-center space-x-1.5 shadow-md active:scale-95 transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
           <span id="main-action-text">Subir Foto</span>
@@ -193,7 +211,6 @@
     </div>
 
     <div class="p-4 md:p-6 max-w-5xl w-full mx-auto flex-1">
-      
       <!-- 1. FEED TAB -->
       <section id="tab-feed" class="space-y-5">
         <div id="feed-container" class="space-y-5"></div>
@@ -252,7 +269,6 @@
 
         <div id="members-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
-
     </div>
   </main>
 
@@ -279,6 +295,67 @@
       <span class="mt-0.5">Admin</span>
     </button>
   </nav>
+
+  <!-- MODAL: Customizer (Sólo Administradora) -->
+  <div id="modal-customizer" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="font-black text-lg text-slate-900 flex items-center gap-2">
+          <span>🎨</span> Personalizar App (Administradora)
+        </h3>
+        <button onclick="closeCustomizerModal()" class="text-slate-400 hover:text-slate-600 p-1 text-xl font-bold">&times;</button>
+      </div>
+
+      <form onsubmit="handleSaveCustomizer(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nombre de la Familia</label>
+          <input type="text" id="cust-family-name" required class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500 font-semibold" placeholder="Ej: Familia Vazquez">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Subtítulo o Lema</label>
+          <input type="text" id="cust-subtitle" required class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500" placeholder="Ej: Red Privada Familiar">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Mensaje de Anuncio (Barra superior)</label>
+          <input type="text" id="cust-announcement" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-sky-500" placeholder="Ej: ¡Bienvenidos a la app!">
+        </div>
+
+        <!-- Paleta de Colores -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Color Principal (Tema)</label>
+          <div class="grid grid-cols-2 gap-2" id="theme-options-grid"></div>
+        </div>
+
+        <!-- Tipografía -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Estilo de Letra (Fuente)</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button type="button" onclick="selectCustFont('sans')" id="font-opt-sans" class="p-2 border rounded-xl text-center text-xs font-sans">
+              <strong>Sans</strong><br><span class="text-[10px] text-slate-400">Moderna</span>
+            </button>
+            <button type="button" onclick="selectCustFont('serif')" id="font-opt-serif" class="p-2 border rounded-xl text-center text-xs font-serif">
+              <strong>Serif</strong><br><span class="text-[10px] text-slate-400">Elegante</span>
+            </button>
+            <button type="button" onclick="selectCustFont('mono')" id="font-opt-mono" class="p-2 border rounded-xl text-center text-xs font-mono">
+              <strong>Mono</strong><br><span class="text-[10px] text-slate-400">Técnica</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Ícono de la app -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Ícono Principal</label>
+          <div class="flex flex-wrap gap-2" id="cust-logo-options"></div>
+        </div>
+
+        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-2xl text-sm shadow-lg transition">
+          Guardar Cambios de Diseño
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- MODAL: Publicar Foto -->
   <div id="modal-post" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -445,9 +522,28 @@
   </div>
 
   <script>
+    const COLOR_THEMES = {
+      sky: { id: 'sky', name: 'Celeste / Azul', bg: 'bg-sky-600', hover: 'hover:bg-sky-700', text: 'text-sky-600', lightBg: 'bg-sky-50', border: 'border-sky-200' },
+      indigo: { id: 'indigo', name: 'Índigo Moderno', bg: 'bg-indigo-600', hover: 'hover:bg-indigo-700', text: 'text-indigo-600', lightBg: 'bg-indigo-50', border: 'border-indigo-200' },
+      rose: { id: 'rose', name: 'Rosa Coral', bg: 'bg-rose-500', hover: 'hover:bg-rose-600', text: 'text-rose-600', lightBg: 'bg-rose-50', border: 'border-rose-200' },
+      emerald: { id: 'emerald', name: 'Verde Bosque', bg: 'bg-emerald-600', hover: 'hover:bg-emerald-700', text: 'text-emerald-600', lightBg: 'bg-emerald-50', border: 'border-emerald-200' },
+      amber: { id: 'amber', name: 'Naranja Cálido', bg: 'bg-amber-600', hover: 'hover:bg-amber-700', text: 'text-amber-600', lightBg: 'bg-amber-50', border: 'border-amber-200' },
+      dark: { id: 'dark', name: 'Oscuro Minimal', bg: 'bg-slate-800', hover: 'hover:bg-slate-900', text: 'text-slate-800', lightBg: 'bg-slate-100', border: 'border-slate-300' }
+    };
+
+    const LOGO_OPTIONS = ['🏡', '❤️', '👑', '🏰', '🌿', '⭐', '☀️️', '🌻', '🐾', '🔥'];
     const DAYS_LIST = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
-    // Cargar datos persistentes de localStorage o inicializar por defecto
+    // Configuración visual persistente
+    let siteConfig = JSON.parse(localStorage.getItem('vazquez_config')) || {
+      familyName: 'Familia Vazquez',
+      subtitle: 'Red Privada Familiar',
+      announcement: '¡Bienvenidos a la app de la Familia Vazquez! Todo lo que agregues quedará guardado.',
+      themeId: 'sky',
+      fontStyle: 'sans',
+      logoIcon: '🏡'
+    };
+
     let members = JSON.parse(localStorage.getItem('vazquez_members')) || [
       { id: '1', name: 'Administradora', role: 'Administradora', email: 'Administradora', password: 'Admin123', avatar: '👑', isAdmin: true },
       { id: '2', name: 'Hermano', role: 'Hermano', email: 'hermano@vazquez.com', password: 'vazquez123', avatar: '👦', isAdmin: false }
@@ -465,6 +561,7 @@
     let uploadedImageBase64 = null;
 
     function saveAllToLocalStorage() {
+      localStorage.setItem('vazquez_config', JSON.stringify(siteConfig));
       localStorage.setItem('vazquez_members', JSON.stringify(members));
       localStorage.setItem('vazquez_posts', JSON.stringify(posts));
       localStorage.setItem('vazquez_agenda', JSON.stringify(agenda));
@@ -475,6 +572,32 @@
       } else {
         localStorage.removeItem('vazquez_session');
       }
+    }
+
+    function applySiteVisuals() {
+      document.getElementById('mobile-brand-title').innerText = siteConfig.familyName;
+      document.getElementById('desktop-brand-title').innerText = siteConfig.familyName;
+      document.getElementById('desktop-brand-subtitle').innerText = siteConfig.subtitle;
+      document.getElementById('login-family-title').innerText = siteConfig.familyName;
+      
+      document.getElementById('mobile-brand-icon').innerText = siteConfig.logoIcon;
+      document.getElementById('desktop-brand-icon').innerText = siteConfig.logoIcon;
+      document.getElementById('login-icon').innerText = siteConfig.logoIcon;
+      
+      document.getElementById('announcement-text').innerText = siteConfig.announcement;
+
+      const body = document.getElementById('app-body');
+      body.classList.remove('font-sans', 'font-serif', 'font-mono');
+      body.classList.add('font-' + siteConfig.fontStyle);
+
+      const activeTheme = COLOR_THEMES[siteConfig.themeId] || COLOR_THEMES.sky;
+      document.getElementById('desktop-brand-icon').className = `w-10 h-10 rounded-2xl ${activeTheme.bg} flex items-center justify-center text-xl shadow-lg shrink-0`;
+      
+      const mainBtn = document.getElementById('main-action-btn');
+      mainBtn.className = `${activeTheme.bg} ${activeTheme.hover} text-white text-xs font-bold px-3.5 py-2 md:px-4 md:py-2.5 rounded-xl flex items-center space-x-1.5 shadow-md active:scale-95 transition`;
+      
+      const loginBtn = document.getElementById('login-submit-btn');
+      if (loginBtn) loginBtn.className = `w-full ${activeTheme.bg} ${activeTheme.hover} text-white font-bold py-3 rounded-xl text-sm shadow-lg transition active:scale-95`;
     }
 
     function checkAuth() {
@@ -522,8 +645,19 @@
       document.getElementById('header-user-name').innerText = currentUser.name;
       document.getElementById('mobile-user-status').innerText = `${currentUser.name} ${currentUser.isAdmin ? '👑' : ''}`;
       
-      document.getElementById('admin-sidebar-menu').style.display = currentUser.isAdmin ? 'block' : 'none';
-      document.getElementById('mobile-dock-admin').style.display = currentUser.isAdmin ? 'flex' : 'none';
+      const isAdmin = currentUser.isAdmin;
+      document.getElementById('admin-sidebar-menu').style.display = isAdmin ? 'block' : 'none';
+      document.getElementById('mobile-dock-admin').style.display = isAdmin ? 'flex' : 'none';
+      
+      // Mostrar u ocultar herramientas de Administradora
+      const customTopBtn = document.getElementById('admin-custom-btn-top');
+      if (customTopBtn) customTopBtn.style.display = isAdmin ? 'flex' : 'none';
+
+      const customMobileBtn = document.getElementById('admin-custom-btn-mobile');
+      if (customMobileBtn) customMobileBtn.style.display = isAdmin ? 'block' : 'none';
+
+      const editBannerBtn = document.getElementById('admin-edit-banner-btn');
+      if (editBannerBtn) editBannerBtn.style.display = isAdmin ? 'inline-block' : 'none';
 
       switchTab('feed');
     }
@@ -549,7 +683,7 @@
       });
 
       const titles = {
-        feed: { title: '📷 Muro Familia Vazquez', subtitle: 'Fotos y recuerdos compartidos', actionText: 'Subir Foto' },
+        feed: { title: '📷 Muro Familiar', subtitle: 'Fotos y recuerdos compartidos', actionText: 'Subir Foto' },
         agenda: { title: '📅 Agenda & Horarios Ocupados', subtitle: 'Revisa de un vistazo cuándo entrenan o están ocupados', actionText: 'Cargar Ocupación' },
         events: { title: '🥩 Reuniones & Asados', subtitle: 'Eventos organizados', actionText: 'Proponer Asado' },
         achievements: { title: '🏆 Logros de la Familia', subtitle: 'Nuestros momentos especiales', actionText: 'Nuevo Logro' },
@@ -561,12 +695,14 @@
       document.getElementById('section-subtitle').innerHTML = `Sesión actual: <strong class="text-slate-700">${currentUser ? currentUser.name : ''}</strong>`;
       document.getElementById('main-action-text').innerText = meta.actionText;
 
+      const activeTheme = COLOR_THEMES[siteConfig.themeId] || COLOR_THEMES.sky;
+
       document.querySelectorAll('.nav-item').forEach(btn => {
         btn.className = 'nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition';
       });
       const activeNav = document.getElementById(`nav-btn-${tabId}`);
       if (activeNav) {
-        activeNav.className = 'nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-sky-600 text-white shadow transition';
+        activeNav.className = `nav-item w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold ${activeTheme.bg} text-white shadow transition`;
       }
 
       if (tabId === 'feed') renderFeed();
@@ -592,24 +728,24 @@
     function renderFeed() {
       const container = document.getElementById('feed-container');
       if (posts.length === 0) {
-        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-sky-100 shadow-sm"><p class="text-4xl mb-2">📷</p><p class="text-sm font-bold text-slate-700">El muro está vacío. ¡Haz clic en "Subir Foto" para publicar algo lindo!</p></div>`;
+        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-slate-200 shadow-sm"><p class="text-4xl mb-2">📷</p><p class="text-sm font-bold text-slate-700">El muro está vacío. ¡Haz clic en "Subir Foto" para publicar algo lindo!</p></div>`;
         return;
       }
 
       container.innerHTML = posts.map(p => {
         const canDelete = currentUser && (p.authorName === currentUser.name || currentUser.isAdmin);
         return `
-          <div class="bg-white rounded-3xl border border-sky-100 shadow-sm overflow-hidden animate-card">
+          <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden animate-card">
             <div class="p-4 flex items-center justify-between border-b border-slate-100">
               <div class="flex items-center space-x-3">
-                <span class="text-2xl bg-sky-50 p-2 rounded-2xl">${p.authorAvatar}</span>
+                <span class="text-2xl bg-slate-100 p-2 rounded-2xl">${p.authorAvatar}</span>
                 <div>
                   <h4 class="font-bold text-slate-900 text-sm">${p.authorName}</h4>
                   <p class="text-[11px] text-slate-400">${p.dateStr}</p>
                 </div>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 border border-sky-200">${p.category || 'Foto'}</span>
+                <span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">${p.category || 'Foto'}</span>
                 ${canDelete ? `<button onclick="deletePost('${p.id}')" class="text-slate-400 hover:text-rose-500 p-1 font-bold text-xs" title="Borrar">✕</button>` : ''}
               </div>
             </div>
@@ -647,12 +783,11 @@
       showToast('Publicación eliminada');
     }
 
-    // RENDER AGENDA ORGANIZADA POR DÍA DE LA SEMANA
     function renderAgenda() {
       const target = document.getElementById('agenda-calendar-container');
 
       if (agenda.length === 0) {
-        target.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-sky-100 shadow-sm"><p class="text-4xl mb-2">📅</p><p class="text-sm font-bold text-slate-700">No hay horarios cargados. Agrega los entrenamientos u ocupaciones de tus hermanos.</p></div>`;
+        target.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-slate-200 shadow-sm"><p class="text-4xl mb-2">📅</p><p class="text-sm font-bold text-slate-700">No hay horarios cargados. Agrega los entrenamientos u ocupaciones de tus hermanos.</p></div>`;
         return;
       }
 
@@ -662,20 +797,20 @@
             const dayItems = agenda.filter(item => item.days && item.days.includes(day));
             const isWeekend = day === 'Sábado' || day === 'Domingo';
             return `
-              <div class="border ${isWeekend ? 'border-amber-200 bg-amber-50/20' : 'border-sky-200 bg-white'} rounded-3xl p-3 flex flex-col justify-between min-h-[180px] shadow-sm">
+              <div class="border ${isWeekend ? 'border-amber-200 bg-amber-50/20' : 'border-slate-200 bg-white'} rounded-3xl p-3 flex flex-col justify-between min-h-[180px] shadow-sm">
                 <div class="space-y-2">
                   <div class="flex items-center justify-between border-b border-slate-100 pb-2">
                     <span class="font-black text-xs text-slate-800">${day}</span>
-                    <span class="text-[9px] font-bold ${isWeekend ? 'bg-amber-100 text-amber-800' : 'bg-sky-100 text-sky-800'} px-1.5 py-0.5 rounded-full">${dayItems.length} ocupaciones</span>
+                    <span class="text-[9px] font-bold ${isWeekend ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-800'} px-1.5 py-0.5 rounded-full">${dayItems.length} ocupaciones</span>
                   </div>
 
                   <div class="space-y-2">
                     ${dayItems.length === 0 ? `
                       <p class="text-[11px] text-slate-400 italic text-center py-4">🟢 Libre</p>
                     ` : dayItems.map(item => `
-                      <div class="bg-sky-50/80 p-2.5 rounded-2xl border border-sky-200 text-left space-y-1 relative group">
+                      <div class="bg-slate-50 p-2.5 rounded-2xl border border-slate-200 text-left space-y-1 relative group">
                         <div class="flex items-center justify-between">
-                          <span class="font-extrabold text-xs text-sky-900 flex items-center gap-1 truncate">
+                          <span class="font-extrabold text-xs text-slate-900 flex items-center gap-1 truncate">
                             <span>${item.authorAvatar || '👤'}</span>
                             <span>${item.person}</span>
                           </span>
@@ -709,14 +844,14 @@
     function renderEvents() {
       const container = document.getElementById('events-container');
       if (events.length === 0) {
-        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-sky-100 shadow-sm col-span-2"><p class="text-4xl mb-2">🥩</p><p class="text-sm font-bold text-slate-700">No hay reuniones propuestas. Haz clic en "Proponer Asado" para organizar una.</p></div>`;
+        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-slate-200 shadow-sm col-span-2"><p class="text-4xl mb-2">🥩</p><p class="text-sm font-bold text-slate-700">No hay reuniones propuestas. Haz clic en "Proponer Asado" para organizar una.</p></div>`;
         return;
       }
 
       container.innerHTML = events.map(e => {
         const myStatus = currentUser ? e.rsvps?.[currentUser.name] : null;
         return `
-          <div class="bg-white rounded-3xl border border-sky-100 shadow-sm p-5 space-y-4 flex flex-col justify-between animate-card">
+          <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-5 space-y-4 flex flex-col justify-between animate-card">
             <div class="space-y-2">
               <div class="flex justify-between items-start">
                 <div>
@@ -771,7 +906,7 @@
     function renderAchievements() {
       const container = document.getElementById('achievements-container');
       if (achievements.length === 0) {
-        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-sky-100 shadow-sm col-span-2"><p class="text-4xl mb-2">🏆</p><p class="text-sm font-bold text-slate-700">Sin logros registrados aún.</p></div>`;
+        container.innerHTML = `<div class="bg-white rounded-3xl p-8 text-center border border-slate-200 shadow-sm col-span-2"><p class="text-4xl mb-2">🏆</p><p class="text-sm font-bold text-slate-700">Sin logros registrados aún.</p></div>`;
         return;
       }
 
@@ -804,7 +939,7 @@
         <div class="border border-slate-200 bg-white rounded-3xl p-4 shadow-sm space-y-3 flex flex-col justify-between animate-card">
           <div class="space-y-2">
             <div class="flex items-center space-x-3">
-              <span class="text-2xl bg-sky-50 p-2 rounded-2xl">${m.avatar}</span>
+              <span class="text-2xl bg-slate-100 p-2 rounded-2xl">${m.avatar}</span>
               <div>
                 <h4 class="font-bold text-xs md:text-sm text-slate-900 flex items-center gap-1">
                   <span>${m.name}</span>
@@ -832,7 +967,7 @@
     function copyMemberCredentials(id) {
       const m = members.find(x => x.id === id);
       if (!m) return;
-      const text = `🏡 Red Social de la Familia Vazquez\n👤 Usuario: ${m.email}\n🔑 Contraseña: ${m.password}\n¡Hola ${m.name}! Ya puedes ingresar con estas claves.`;
+      const text = `🏡 Red Social de la ${siteConfig.familyName}\n👤 Usuario: ${m.email}\n🔑 Contraseña: ${m.password}\n¡Hola ${m.name}! Ya puedes ingresar con estas claves.`;
       
       const tempInput = document.createElement("textarea");
       tempInput.value = text;
@@ -852,6 +987,60 @@
       showToast('Familiar eliminado');
     }
 
+    function openCustomizerModal() {
+      if (!currentUser || !currentUser.isAdmin) {
+        alert("Solo la Administradora puede cambiar el diseño de la app.");
+        return;
+      }
+
+      document.getElementById('cust-family-name').value = siteConfig.familyName;
+      document.getElementById('cust-subtitle').value = siteConfig.subtitle;
+      document.getElementById('cust-announcement').value = siteConfig.announcement;
+      
+      const grid = document.getElementById('theme-options-grid');
+      grid.innerHTML = Object.values(COLOR_THEMES).map(t => `
+        <button type="button" onclick="selectCustTheme('${t.id}')" id="theme-btn-${t.id}" class="p-2.5 rounded-xl border flex items-center space-x-2 text-left transition ${siteConfig.themeId === t.id ? 'border-sky-600 bg-sky-50 ring-2 ring-sky-500 font-bold' : 'border-slate-200'}">
+          <span class="w-4 h-4 rounded-full ${t.bg} shrink-0"></span>
+          <span class="text-xs text-slate-800">${t.name}</span>
+        </button>
+      `).join('');
+
+      ['sans', 'serif', 'mono'].forEach(f => {
+        const b = document.getElementById(`font-opt-${f}`);
+        if (siteConfig.fontStyle === f) {
+          b.className = 'p-2 border rounded-xl text-center text-xs ring-2 ring-sky-500 bg-sky-50 font-bold';
+        } else {
+          b.className = 'p-2 border rounded-xl text-center text-xs';
+        }
+      });
+
+      const iconsContainer = document.getElementById('cust-logo-options');
+      iconsContainer.innerHTML = LOGO_OPTIONS.map(icon => `
+        <button type="button" onclick="selectCustIcon('${icon}')" class="text-2xl p-2 rounded-xl border transition ${siteConfig.logoIcon === icon ? 'bg-slate-100 ring-2 ring-sky-500 scale-105' : 'border-slate-200 hover:bg-slate-50'}">
+          ${icon}
+        </button>
+      `).join('');
+
+      openModal('modal-customizer');
+    }
+
+    function closeCustomizerModal() { closeModal('modal-customizer'); }
+    function selectCustTheme(id) { siteConfig.themeId = id; openCustomizerModal(); }
+    function selectCustFont(font) { siteConfig.fontStyle = font; openCustomizerModal(); }
+    function selectCustIcon(icon) { siteConfig.logoIcon = icon; openCustomizerModal(); }
+
+    function handleSaveCustomizer(e) {
+      e.preventDefault();
+      siteConfig.familyName = document.getElementById('cust-family-name').value;
+      siteConfig.subtitle = document.getElementById('cust-subtitle').value;
+      siteConfig.announcement = document.getElementById('cust-announcement').value;
+
+      saveAllToLocalStorage();
+      applySiteVisuals();
+      closeCustomizerModal();
+      showToast('¡Diseño y textos actualizados!');
+    }
+
     function openActiveActionModal() {
       if (!currentUser) return;
       if (currentTab === 'feed') openModal('modal-post');
@@ -861,7 +1050,7 @@
         const title = prompt("Título del logro:");
         if (title) {
           const person = prompt("¿Quién lo logró?", currentUser.name);
-          achievements.unshift({ id: Date.now().toString(), title, person, description: '¡Felicitaciones de la Familia Vazquez!', badge: '🎓' });
+          achievements.unshift({ id: Date.now().toString(), title, person, description: '¡Felicitaciones de la Familia!', badge: '🎓' });
           saveAllToLocalStorage();
           renderAchievements();
           showToast('Logro agregado');
@@ -1004,6 +1193,7 @@
     }
 
     window.onload = function() {
+      applySiteVisuals();
       checkAuth();
       renderFeed();
       renderAgenda();
