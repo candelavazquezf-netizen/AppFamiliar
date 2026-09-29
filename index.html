@@ -246,7 +246,7 @@
           <label class="block text-xs font-semibold text-slate-600 mb-1">Elegir Mi Avatar</label>
           <div class="grid grid-cols-6 gap-2" id="avatar-options-grid"></div>
         </div>
-        <button type="submit" id="profile-save-btn" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-sm shadow">Guardar Cambios de Perfil</button>
+        <button type="submit" id="profile-save-btn" class="w-full bg-sky-600 text-white font-bold py-3 rounded-xl text-sm shadow">Guardar Cambios de Perfil</button>
       </form>
     </div>
   </div>
@@ -460,6 +460,7 @@
 
     const LOGO_OPTIONS = ['🏡', '❤️', '👑', '🏰', '🌿', '⭐', '☀️', '🌻', '🐾', '🔥'];
     const AVATAR_OPTIONS = ['👩', '👨', '👧', '👦', '👵', '👴', '👩‍💼', '👑', '🐶', '🐱', '⚽', '🎨'];
+    const EMOJI_KEYS = { HEART: '❤️', LAUGH: '😂', CLAP: '👏', PARTY: '🎉' };
     const DAYS_LIST = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
     let siteConfig = {
@@ -732,22 +733,28 @@
       });
     }
 
-    function reactToItemWithUser(collection, id, emoji, currentReactionsMap = {}) {
+    // MANEJO DE REACCIONES LIMPIO SIN FALLO DE CARACTERES
+    function toggleReaction(collection, id, emojiKey) {
       if (!currentUser) return;
-      const reactions = { ...currentReactionsMap };
       const myName = currentUser.name;
 
-      if (!reactions[emoji]) reactions[emoji] = [];
+      db.collection(collection).doc(id).get().then(doc => {
+        if (!doc.exists) return;
+        const data = doc.data();
+        const reactions = { ...(data.reactions || {}) };
 
-      const userIndex = reactions[emoji].indexOf(myName);
-      if (userIndex > -1) {
-        reactions[emoji].splice(userIndex, 1);
-        if (reactions[emoji].length === 0) delete reactions[emoji];
-      } else {
-        reactions[emoji].push(myName);
-      }
+        if (!reactions[emojiKey]) reactions[emojiKey] = [];
 
-      db.collection(collection).doc(id).update({ reactions: reactions });
+        const index = reactions[emojiKey].indexOf(myName);
+        if (index > -1) {
+          reactions[emojiKey].splice(index, 1);
+          if (reactions[emojiKey].length === 0) delete reactions[emojiKey];
+        } else {
+          reactions[emojiKey].push(myName);
+        }
+
+        return db.collection(collection).doc(id).update({ reactions: reactions });
+      });
     }
 
     function addCommentToPost(postId) {
@@ -817,20 +824,24 @@
       showToast('Evento guardado');
     }
 
-    function toggleEventRsvp(eventId, status, currentRsvps = {}) {
+    function toggleEventRsvp(eventId, status) {
       if (!currentUser) return;
-      const updated = { ...currentRsvps };
       const myName = currentUser.name;
 
-      if (updated[myName] === status) {
-        delete updated[myName];
-        showToast("Removiste tu voto");
-      } else {
-        updated[myName] = status;
-        showToast(`Tu voto (${status === 'SI' ? 'Voy' : status === 'NO' ? 'No voy' : 'Tal vez'}) fue registrado`);
-      }
+      db.collection('events').doc(eventId).get().then(doc => {
+        if (!doc.exists) return;
+        const rsvps = { ...(doc.data().rsvps || {}) };
 
-      db.collection('events').doc(eventId).update({ rsvps: updated });
+        if (rsvps[myName] === status) {
+          delete rsvps[myName];
+          showToast("Removiste tu voto");
+        } else {
+          rsvps[myName] = status;
+          showToast(`Tu voto (${status === 'SI' ? 'Voy' : status === 'NO' ? 'No voy' : 'Tal vez'}) fue registrado`);
+        }
+
+        return db.collection('events').doc(eventId).update({ rsvps: rsvps });
+      });
     }
 
     function handleCreateAchievement(e) {
@@ -867,7 +878,7 @@
       showToast(`¡Usuario creado para ${name}!`);
     }
 
-    // CORRECCIÓN DEFINITIVA PARA GUARDAR NOMBRE Y AVATAR
+    // CORRECCIÓN DEFINITIVA DE PERFIL
     function openProfileModal() {
       if (!currentUser) return;
       document.getElementById('profile-name-input').value = currentUser.name;
@@ -899,30 +910,27 @@
 
       const btn = document.getElementById('profile-save-btn');
       btn.disabled = true;
-      btn.innerText = 'Guardando en la nube...';
+      btn.innerText = 'Guardando...';
 
-      // Busca la cuenta del usuario en Firestore para actualizar el documento existente
       db.collection('members').where('email', '==', currentUser.email).get().then(snap => {
         let docRef;
         if (!snap.empty) {
           docRef = snap.docs[0].ref;
-        } else if (currentUser.id) {
-          docRef = db.collection('members').doc(currentUser.id);
         } else {
           docRef = db.collection('members').doc();
         }
 
-        return docRef.set({
+        const updatedData = {
           name: newName,
           role: currentUser.role || 'Familiar',
           email: currentUser.email || newName,
           password: currentUser.password || 'vazquez123',
           avatar: selectedAvatarTemp,
           isAdmin: !!currentUser.isAdmin
-        }, { merge: true }).then(() => {
-          currentUser.id = docRef.id;
-          currentUser.name = newName;
-          currentUser.avatar = selectedAvatarTemp;
+        };
+
+        return docRef.set(updatedData, { merge: true }).then(() => {
+          currentUser = { ...currentUser, ...updatedData, id: docRef.id };
           localStorage.setItem('vazquez_session', JSON.stringify(currentUser));
           
           btn.disabled = false;
@@ -930,12 +938,12 @@
           
           updateUserUI();
           closeModal('modal-profile');
-          showToast('¡Tu perfil y avatar fueron actualizados!');
+          showToast('¡Tu perfil fue actualizado!');
         });
       }).catch(() => {
         btn.disabled = false;
         btn.innerText = 'Guardar Cambios de Perfil';
-        alert("Error al actualizar el perfil. Intenta nuevamente.");
+        alert("Error al guardar en la nube.");
       });
     }
 
@@ -992,14 +1000,14 @@
 
             <!-- Reacciones con Nombres -->
             <div class="px-5 py-2.5 bg-slate-50 border-t border-slate-100 flex items-center space-x-2 overflow-x-auto">
-              ${['❤️', '😂', '👏', '🎉'].map(emoji => {
-                const userList = Array.isArray(reactionsMap[emoji]) ? reactionsMap[emoji] : [];
+              ${Object.entries(EMOJI_KEYS).map(([key, emoji]) => {
+                const userList = Array.isArray(reactionsMap[key]) ? reactionsMap[key] : [];
                 const count = userList.length;
                 const hasReacted = currentUser && userList.includes(currentUser.name);
                 const tooltipText = count > 0 ? `Reaccionaron: ${userList.join(', ')}` : 'Haz clic para reaccionar';
 
                 return `
-                  <button onclick="reactToItemWithUser('posts', '${p.id}', '${emoji}',${JSON.stringify(reactionsMap).replace(/"/g, '&quot;')})" 
+                  <button onclick="toggleReaction('posts', '${p.id}', '${key}')" 
                           title="${tooltipText}"
                           class="bg-white border ${hasReacted ? 'border-sky-500 bg-sky-50/60 font-bold' : 'border-slate-200'} hover:border-sky-400 px-3 py-1 rounded-full text-xs transition shadow-xs flex items-center space-x-1.5 active:scale-95">
                     <span>${emoji}</span>
@@ -1095,13 +1103,13 @@
             <div class="border-t border-slate-100 pt-3 space-y-2">
               <p class="text-xs font-semibold text-slate-600">¿Asistirás (${currentUser ? currentUser.name : ''})?</p>
               <div class="grid grid-cols-3 gap-2">
-                <button onclick="toggleEventRsvp('${e.id}', 'SI', ${JSON.stringify(rsvps).replace(/"/g, '&quot;')})" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'SI' ? 'bg-emerald-600 text-white border-emerald-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
+                <button onclick="toggleEventRsvp('${e.id}', 'SI')" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'SI' ? 'bg-emerald-600 text-white border-emerald-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
                   ✓ Voy
                 </button>
-                <button onclick="toggleEventRsvp('${e.id}', 'TAL_VEZ', ${JSON.stringify(rsvps).replace(/"/g, '&quot;')})" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'TAL_VEZ' ? 'bg-amber-500 text-white border-amber-500 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
+                <button onclick="toggleEventRsvp('${e.id}', 'TAL_VEZ')" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'TAL_VEZ' ? 'bg-amber-500 text-white border-amber-500 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
                   ? Tal vez
                 </button>
-                <button onclick="toggleEventRsvp('${e.id}', 'NO', ${JSON.stringify(rsvps).replace(/"/g, '&quot;')})" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'NO' ? 'bg-rose-600 text-white border-rose-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
+                <button onclick="toggleEventRsvp('${e.id}', 'NO')" class="py-1.5 rounded-xl text-xs font-bold border transition ${myStatus === 'NO' ? 'bg-rose-600 text-white border-rose-600 shadow' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}">
                   ✕ No voy
                 </button>
               </div>
@@ -1145,16 +1153,16 @@
               ${currentUser && currentUser.isAdmin ? `<button onclick="deleteDoc('achievements', '${a.id}')" class="text-slate-400 hover:text-rose-500 font-bold text-xs">✕</button>` : ''}
             </div>
 
-            <!-- Reacciones a Logros con Nombres -->
             <div class="pt-2 border-t border-slate-200/60 flex items-center space-x-2">
-              ${['❤️', '👏', '🎉'].map(emoji => {
-                const userList = Array.isArray(reactionsMap[emoji]) ? reactionsMap[emoji] : [];
+              ${['HEART', 'CLAP', 'PARTY'].map(key => {
+                const emoji = EMOJI_KEYS[key];
+                const userList = Array.isArray(reactionsMap[key]) ? reactionsMap[key] : [];
                 const count = userList.length;
                 const hasReacted = currentUser && userList.includes(currentUser.name);
                 const tooltipText = count > 0 ? `Reaccionaron: ${userList.join(', ')}` : 'Haz clic para reaccionar';
 
                 return `
-                  <button onclick="reactToItemWithUser('achievements', '${a.id}', '${emoji}',${JSON.stringify(reactionsMap).replace(/"/g, '&quot;')})" 
+                  <button onclick="toggleReaction('achievements', '${a.id}', '${key}')" 
                           title="${tooltipText}"
                           class="bg-white border ${hasReacted ? 'border-sky-500 bg-sky-50/60 font-bold' : 'border-slate-200'} hover:border-sky-400 px-2.5 py-0.5 rounded-full text-xs transition shadow-xs flex items-center space-x-1 active:scale-95">
                     <span>${emoji}</span>
